@@ -1,0 +1,20 @@
+{
+    "users": [{
+        "id": 1,
+        "name": "username",
+        "email": "username@email.com",
+        "balance": 10,
+        "events": [10, 20]
+    }],
+    "events": [{
+        "id": 1,
+        "name": "some comment",
+        "date": "2014-01-01T23:28:56.782Z",
+        "amount": 400,
+        "paidBy": 1,
+
+
+        "players": [1, 2]
+    }]
+
+}
