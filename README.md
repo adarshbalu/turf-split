@@ -6,6 +6,16 @@
 npm install firebase
 ```
 
+- Install JSON Server
+
+```
+npm install json-server
+```
+Run Json server :
+```
+json-server --watch db.json
+```
+
 - Folder Structure
 
 ```
@@ -33,3 +43,4 @@ project
 ```
 
 - Firebase - Google authentication
+- JSON server - User and event management
