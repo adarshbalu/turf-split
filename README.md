@@ -5,7 +5,7 @@
 ```
 npm install firebase
 ```
-
+- Use .env for the firebase credentials.
 - Install JSON Server
 
 ```
@@ -69,6 +69,8 @@ project
 |   |   react-app-env.d.ts
 │   │
 │   └─── components
+|   └─── config
+|   └─── pages
 │   └─── services
 │   └─── types    
 |   └─── utils
