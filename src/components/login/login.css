@@ -1,25 +1,57 @@
+.main-div {
+  display: flex;
+  justify-content: center;
+}
 .login-box {
-  width: 50%;
-  height: 50%;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: #fff;
-  text-align: center;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 30px 20px 30px;
+  height: 300px;
+  width: 300px;
+  border-radius: 15px;
+  display: block;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  box-shadow: 5px 10px 12px #a3a3a3;
 }
 
-h1 {
+.h1-color {
   color: black;
 }
 
-button {
+.login-button {
   background: #000;
   color: #fff;
   border: none;
-  margin-top: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 5px 15px;
+  margin: 30px auto;
+  padding: 10px 15px;
   border-radius: 5px;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
+  display: block;
+  width: 75%;
+}
+
+.form-padding {
+  padding-top: 30px;
+}
+
+.input-field {
+  border: none;
+  outline: none;
+  border-bottom: rgba(46, 46, 46, 0.7) solid 1px;
+  border-radius: 0px;
+  display: block;
+  line-height: 1.2em;
+  font-size: 12pt;
+  padding: 10px 10px 0px 10px;
+  margin: 0px auto;
+  background-color: rgb(255, 255, 255);
+  width: 75%;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin: 0px 10px;
+  color: rgb(142, 142, 142);
 }
