@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    margin: 0;
+    column-gap: 20px;
+}
+
+.dashboard-left {
+    flex-basis: 20%;
+}
+
+.dashboard-right {}

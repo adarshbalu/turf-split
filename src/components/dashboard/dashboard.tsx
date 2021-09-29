@@ -1,13 +1,14 @@
 import { FunctionComponent, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { AuthContext, AuthState } from "../../contexts/auth_context";
-
+import SideBar from "../common/sidebar/sidebar";
+import '../dashboard/dashboard.css';
 interface DashboardProps {
 
 }
 
 const Dashboard: FunctionComponent<DashboardProps> = () => {
-    const { user, authState, logoutUser } = useContext(AuthContext);
+    const { authState, } = useContext(AuthContext);
     const history = useHistory();
     useEffect(() => {
         if (authState === AuthState.UNAUTHENTICATED) {
@@ -20,8 +21,16 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
         history.push(path);
     };
     return (<>
-        <h1>Welcome {user.name}</h1>
-        {authState === AuthState.AUTHENTICATED ? <button id="logout" onClick={logoutUser}>Logout</button> : <></>}
+        <div className="dashboard-container">
+            <div className="dashboard-left"> <SideBar />
+            </div>
+
+            <div className="dashboard-right">
+                <h1>Dashboard</h1>
+                {/* {authState === AuthState.AUTHENTICATED ? <button id="logout" onClick={logoutUser}>Logout</button> : <></>} */}
+            </div>
+
+        </div>
     </>);
 }
 
