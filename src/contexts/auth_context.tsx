@@ -39,8 +39,9 @@ const AuthContextProvider = (props: Props) => {
     const baseURL: string = "http://localhost:5000/users/";
     const [user, setUser] = useState<User>(initialState.user);
     const [authState, setAuthState] = useState<AuthState>(initialState.authState);
-
     const [userState, setUserState] = useState<UserState>(UserState.NEW);
+
+
 
     // Stores all the users registered
     let allUsers: User[] = [];
@@ -115,6 +116,8 @@ const AuthContextProvider = (props: Props) => {
             });
             const data: User = await res.json() as User;
             setUser(data);
+
+
         }
         catch (e) {
             console.log(`Error : ${e}`);
@@ -158,7 +161,7 @@ const AuthContextProvider = (props: Props) => {
                 setAuthState(AuthState.ERROR);
                 setTimeout(() => {
                     setAuthState(AuthState.UNAUTHENTICATED);
-                }, 1000);
+                }, 500);
             }
         } catch (e) {
             console.log(`Error : ${e}`);
@@ -175,6 +178,7 @@ const AuthContextProvider = (props: Props) => {
         else { // The user does not exist , create a new user
             await createUser(email);
         }
+
     }
 
     // Loogout the user by changing the authstate 
@@ -190,8 +194,18 @@ const AuthContextProvider = (props: Props) => {
         setUser({} as User);
     }
 
+    // Check if userdata is saved in local storage
+    // const checkForAutoLogin = async (): Promise<void> => {
+    //     const isUserDataAvailable: boolean = LocalStorage.checkData(LocalStorage.USER_DATA);
+    //     if (isUserDataAvailable) {
 
-
+    //         const newUser: User = JSON.parse(LocalStorage.getData(LocalStorage.USER_DATA)) as User;
+    //         setUser(newUser);
+    //         console.log('User data found');
+    //     } else {
+    //         console.log('user data not found');
+    //     }
+    // }
 
     return (
         <AuthContext.Provider value={{ user: user, loginUser, logoutUser, authState, fetchUsers, userState, addUsername }}>

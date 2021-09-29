@@ -1,16 +1,19 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import "../login/login.css";
 import { useHistory } from "react-router";
+
 import {
   AuthContext,
   AuthContextType,
   AuthState,
   UserState,
 } from "../../contexts/auth_context";
+import LocalStorage from "../../services/local_storage";
 
 const LoginBox: FunctionComponent = () => {
   const history = useHistory();
-  const { authState, loginUser, addUsername, userState } = useContext(
+
+  const { authState, loginUser, addUsername, userState, user } = useContext(
     AuthContext
   ) as AuthContextType;
 
@@ -22,6 +25,8 @@ const LoginBox: FunctionComponent = () => {
 
   useEffect(() => {
     if (authState === AuthState.AUTHENTICATED) {
+      // Store user data to local storage
+      LocalStorage.setData(LocalStorage.USER_DATA, JSON.stringify(user));
       if (userState === UserState.NEW) {
         setUserName();
       } else {
