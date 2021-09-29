@@ -10,7 +10,7 @@ interface HomeProps {
 }
 
 const Home: FunctionComponent<HomeProps> = () => {
-    const { logoutUser, authState } = useContext(AuthContext) as AuthContextType;
+    const { authState } = useContext(AuthContext) as AuthContextType;
     const history = useHistory();
     useEffect(() => {
         // logoutUser();
@@ -24,7 +24,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     return (
         <>
             <h1>Home</h1>
-            {authState === AuthState.AUTHENTICATED ? <button id="logout" onClick={logoutUser}>Logout</button> : <button id="login" onClick={routeChange}>Login</button>}
+            <button id="login" onClick={routeChange} disabled={authState !== AuthState.UNAUTHENTICATED}>Login</button>
         </>
     );
 }

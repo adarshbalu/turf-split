@@ -53,7 +53,7 @@ const LoginBox: FunctionComponent = () => {
   };
 
   const routeChange = () => {
-    let path = `/`;
+    let path = `/dashboard`;
     history.push(path);
   };
 
