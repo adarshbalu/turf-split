@@ -5,11 +5,13 @@
 .dashboard-container {
     display: flex;
     margin: 0;
-    column-gap: 20px;
+    padding: 0;
 }
 
 .dashboard-left {
-    flex-basis: 20%;
+    flex-basis: 18%;
 }
 
-.dashboard-right {}
+.dashboard-right {
+    flex-grow: 2;
+}

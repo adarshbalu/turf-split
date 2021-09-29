@@ -1,10 +1,19 @@
 .sidebar-container {
+    padding: 30px 16px;
     display: flex;
     height: 100vh;
     background-color: #FFFFFF;
     flex-flow: column;
     align-items: center;
     justify-content: space-between;
+}
+
+.sidebar-logo {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    height: 50px;
+    padding: 10px;
+    text-align: center;
 }
 
 .sidebar-top {
@@ -14,12 +23,6 @@
     width: 100%;
 }
 
-.sidebar-logo {
-    margin-top: 16px;
-    height: 50px;
-    align-self: center;
-}
-
 .sidebar-item {
     cursor: pointer;
     text-align: center;
@@ -27,8 +30,8 @@
     height: 40px;
     padding: 10px;
     color: #838A96;
-    border-top: 1px solid rgb(231, 228, 228);
-    border-bottom: 1px solid rgb(231, 228, 228);
+    /* border-top: 1px solid rgb(231, 228, 228);
+    border-bottom: 1px solid rgb(231, 228, 228); */
 }
 
 .sidebar-item :hover {

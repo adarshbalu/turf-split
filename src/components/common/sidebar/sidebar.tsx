@@ -11,8 +11,8 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
             {/* Sidebar top section - Logo , Dashboard , Events , Profile */}
             <div className="sidebar-top">
                 <div className="sidebar-logo"> LOGO</div>
-                <div className="sidebar-item"> Dashboard</div>
-                <div className="sidebar-item sidebar-item__selected">Events</div>
+                <div className="sidebar-item sidebar-item__selected"> Dashboard</div>
+                <div className="sidebar-item ">Events</div>
                 <div className="sidebar-item">Profile</div>
             </div>
             {/* Sidebar bottom section - Logout */}
