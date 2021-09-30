@@ -9,7 +9,7 @@ Run Json server :
 ```
 json-server --watch db.json
 ```
-JSON Schema : 
+ 
 ```
 {
     "users": [
@@ -35,7 +35,7 @@ JSON Schema :
         "date": "2014-01-01T23:28:56.782Z",
         "amount": 400,
         "paidBy": 1,
-        "players": [1, 2],
+        "players": [{"id":1,"count":2},{"id":2,"count":1}],
         "isPaid": true
     },
     {
@@ -44,7 +44,7 @@ JSON Schema :
         "date": "2014-01-01T23:28:56.782Z",
         "amount": 400,
         "paidBy": 7,
-        "players": [10, 6,9,5,2],
+        "players": [{"id":5,"count":1},{"id":10,"count":1}],,
         "isPaid": false
     }
     ]

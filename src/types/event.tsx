@@ -4,6 +4,11 @@ export default interface Event {
     date: Date;
     amount: number;
     paidBy: string;
-    players: number[];
+    players: Array<Player>;
     isPaid: boolean;
+}
+
+export interface Player {
+    id: number;
+    count: number;
 }
