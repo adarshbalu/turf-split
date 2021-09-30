@@ -4,11 +4,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import HomePage from './components/home/home';
 import AuthContextProvider from './contexts/auth_context';
 import LandingPage from './components/landing/landing';
+import NavbarContextProvider from './contexts/nav_context';
+import EventContextProvider from './contexts/event_context';
 
 function App() {
   return (
     <AuthContextProvider>
-
+      <NavbarContextProvider>
+        <EventContextProvider>
     <Router>
       <Switch>
 
@@ -23,6 +26,8 @@ function App() {
           </Route>
       </Switch>
     </Router>
+        </EventContextProvider>
+      </NavbarContextProvider>
     </AuthContextProvider>
   );
 }
