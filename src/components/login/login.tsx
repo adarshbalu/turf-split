@@ -8,12 +8,11 @@ import {
   AuthState,
   UserState,
 } from "../../contexts/auth_context";
-import LocalStorage from "../../services/local_storage";
 
 const LoginBox: FunctionComponent = () => {
   const history = useHistory();
 
-  const { authState, loginUser, addUsername, userState, user } = useContext(
+  const { authState, loginUser, addUsername, userState, } = useContext(
     AuthContext
   ) as AuthContextType;
 
@@ -25,15 +24,14 @@ const LoginBox: FunctionComponent = () => {
 
   useEffect(() => {
     if (authState === AuthState.AUTHENTICATED) {
-      // Store user data to local storage
-      LocalStorage.setData(LocalStorage.USER_DATA, JSON.stringify(user));
+
       if (userState === UserState.NEW) {
         setUserName();
       } else {
         routeChange();
       }
     } else if (authState === AuthState.ERROR) {
-      alert("Error occured");
+      alert("Authentication failed");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

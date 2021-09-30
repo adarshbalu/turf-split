@@ -26,6 +26,7 @@ export default class APIService {
 
     static async post(url: string, body: {}): Promise<any> {
         try {
+
             const res: Response = await fetch(url, {
                 method: "POST",
                 body: JSON.stringify(body),
@@ -33,7 +34,8 @@ export default class APIService {
                     "Content-type": "application/json",
                 },
             });
-            if (res.statusText === 'ok') {
+
+            if (res.ok) {
                 const data = await res.json();
                 return data;
             } else {
@@ -58,7 +60,7 @@ export default class APIService {
                     "Content-type": "application/json",
                 },
             });
-            if (res.statusText === 'ok') {
+            if (res.ok) {
 
                 const data = await res.json();
                 return data;

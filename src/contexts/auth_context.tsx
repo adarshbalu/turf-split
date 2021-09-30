@@ -121,16 +121,16 @@ const AuthContextProvider = (props: Props) => {
     try {
       const data = await APIService.post(URL.usersPath, newUser) as User;
       allUsers = [...allUsers, newUser];
-        setUser(data);
-        setAuthState(AuthState.AUTHENTICATED);
-        setUserState(UserState.NEW);
+      setUser(data);
+      setAuthState(AuthState.AUTHENTICATED);
+      setUserState(UserState.NEW);
 
     } catch (e) {
       console.log(`Error : ${e}`);
       setAuthState(AuthState.ERROR);
-        setTimeout(() => {
-          setAuthState(AuthState.UNAUTHENTICATED);
-        }, 500);
+      setTimeout(() => {
+        setAuthState(AuthState.UNAUTHENTICATED);
+      }, 500);
     }
   };
 
