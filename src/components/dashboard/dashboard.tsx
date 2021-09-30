@@ -1,8 +1,6 @@
 import { FunctionComponent, useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { AuthContext, AuthState } from "../../contexts/auth_context";
-import MainHeader from "../common/header/header";
-import SideBar from "../common/sidebar/sidebar";
 import '../dashboard/dashboard.css';
 interface DashboardProps {
 
@@ -26,16 +24,10 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     return (
         <>
 
-            <div className="dashboard-container">
+            <div className="">
+                Dashboard
 
-                <div className="dashboard-left">
-                    <SideBar />
-            </div>
 
-            <div className="dashboard-right">
-                    <MainHeader />
-                {/* {authState === AuthState.AUTHENTICATED ? <button id="logout" onClick={logoutUser}>Logout</button> : <></>} */}
-            </div>
 
             </div>
         </>

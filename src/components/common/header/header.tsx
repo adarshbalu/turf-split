@@ -1,14 +1,14 @@
 import { FunctionComponent } from "react";
 import '../header/header.css';
 interface MainHeaderProps {
-
+    title: string
 }
 
-const MainHeader: FunctionComponent<MainHeaderProps> = () => {
+const MainHeader: FunctionComponent<MainHeaderProps> = (props: MainHeaderProps) => {
     return (
         <>
             <header className="header-container">
-                <h3>Dashboard</h3>
+                <h3>{props.title}</h3>
             </header>
 
         </>
