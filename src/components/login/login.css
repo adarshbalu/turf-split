@@ -12,6 +12,7 @@
   margin-top: 50vh;
   transform: translateY(-50%);
   box-shadow: 5px 10px 12px #a3a3a3;
+  box-sizing: content-box;
 }
 
 .h1-color {

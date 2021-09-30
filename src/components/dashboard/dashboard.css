@@ -1,17 +1,13 @@
-* {
-    box-sizing: border-box;
-}
-
 .dashboard-container {
-    display: flex;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .dashboard-left {
-    flex-basis: 18%;
+  flex-basis: 18%;
 }
 
 .dashboard-right {
-    flex-grow: 2;
+  flex-grow: 2;
 }
