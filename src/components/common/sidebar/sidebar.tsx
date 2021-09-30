@@ -1,10 +1,12 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { AuthContext, AuthContextType } from "../../../contexts/auth_context";
 import '../sidebar/sidebar.css';
 interface SideBarProps {
 
 }
 
 const SideBar: FunctionComponent<SideBarProps> = () => {
+    const { logoutUser } = useContext(AuthContext) as AuthContextType;
     return (<>
         {/* Sidebar */}
         <nav className="sidebar-container">
@@ -17,7 +19,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
             </div>
             {/* Sidebar bottom section - Logout */}
             <div className="sidebar-bottom">
-                <div>Logout</div>
+                <div onClick={logoutUser}>Logout</div>
             </div>
         </nav>
     </>);

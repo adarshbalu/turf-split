@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
+import APIService from "../services/api_service";
 import User from "../types/user";
+import URL from "../utils/urls";
 
 export enum AuthState {
   AUTHENTICATED,
@@ -37,7 +39,6 @@ const initialState: AuthContextType = {
 export const AuthContext = createContext<AuthContextType>(initialState);
 
 const AuthContextProvider = (props: Props) => {
-  const baseURL: string = "http://localhost:5000/users/";
   const [user, setUser] = useState<User>(initialState.user);
   const [authState, setAuthState] = useState<AuthState>(initialState.authState);
   const [userState, setUserState] = useState<UserState>(UserState.NEW);
@@ -47,17 +48,13 @@ const AuthContextProvider = (props: Props) => {
 
   const getUserData = async (id: number): Promise<void> => {
     try {
-      const res: Response = await fetch(baseURL + id);
-      if (res.status === 200) {
-        const data: User = (await res.json()) as User;
+      const data: User = await APIService.get(URL.usersPath + id) as User;
         setUserState(UserState.EXISTING);
         setUser(data);
         setAuthState(AuthState.AUTHENTICATED);
         checkUsernameAdded();
         // return data;
-      } else {
-        console.log("Error fetching users");
-      }
+
     } catch (e) {
       console.log(`Error : ${e}`);
     }
@@ -66,13 +63,8 @@ const AuthContextProvider = (props: Props) => {
   // Fetch all the users
   const fetchUsers = async () => {
     try {
-      const res: Response = await fetch(baseURL);
-      if (res.status === 200) {
-        const data = await res.json();
-        return data;
-      } else {
-        console.log("Error fetching users");
-      }
+      const data = await APIService.get(URL.usersPath);
+      return data;
     } catch (e) {
       console.log(`Error : ${e}`);
     }
@@ -101,14 +93,7 @@ const AuthContextProvider = (props: Props) => {
   const addUsername = async (username: string) => {
     const newUser: User = { ...user, name: username };
     try {
-      const res: Response = await fetch(baseURL + user.id, {
-        method: "PUT",
-        body: JSON.stringify(newUser),
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-      const data: User = (await res.json()) as User;
+      const data: User = await APIService.put(URL.usersPath + user.id, newUser) as User;
       setUser(data);
       setUserState(UserState.EXISTING);
     } catch (e) {
@@ -134,27 +119,18 @@ const AuthContextProvider = (props: Props) => {
       events: [],
     };
     try {
-      const res: Response = await fetch(baseURL, {
-        method: "POST",
-        body: JSON.stringify(newUser),
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-      if (res.status === 201) {
-        allUsers = [...allUsers, newUser];
-        const data: User = (await res.json()) as User;
+      const data = await APIService.post(URL.usersPath, newUser) as User;
+      allUsers = [...allUsers, newUser];
         setUser(data);
         setAuthState(AuthState.AUTHENTICATED);
         setUserState(UserState.NEW);
-      } else {
-        setAuthState(AuthState.ERROR);
+
+    } catch (e) {
+      console.log(`Error : ${e}`);
+      setAuthState(AuthState.ERROR);
         setTimeout(() => {
           setAuthState(AuthState.UNAUTHENTICATED);
         }, 500);
-      }
-    } catch (e) {
-      console.log(`Error : ${e}`);
     }
   };
 
