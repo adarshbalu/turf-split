@@ -12,7 +12,8 @@
         "date": "2014-01-01T23:28:56.782Z",
         "amount": 400,
         "paidBy": 1,
-        "players": [1, 2]
+        "players": [1, 2],
+        "isPaid": true
     }]
 
 }

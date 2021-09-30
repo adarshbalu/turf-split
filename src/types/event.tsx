@@ -5,5 +5,5 @@ export default interface Event {
     amount: number;
     paidBy: string;
     players: number[];
-
+    isPaid: boolean;
 }
