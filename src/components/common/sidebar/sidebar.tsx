@@ -2,9 +2,9 @@ import { FunctionComponent, useContext } from "react";
 import { AuthContext, AuthContextType } from "../../../contexts/auth_context";
 import { Navbar, NavbarContext } from "../../../contexts/nav_context";
 import '../sidebar/sidebar.css';
-interface SideBarProps {
+import { ReactComponent as Football } from "../../../assets/football.svg";
 
-}
+interface SideBarProps { }
 
 const SideBar: FunctionComponent<SideBarProps> = () => {
     const { navbar, changeTab } = useContext(NavbarContext);
@@ -26,7 +26,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
         <nav className="sidebar-container">
             {/* Sidebar top section - Logo , Dashboard , Events , Profile */}
             <div className="sidebar-top">
-                <div className="sidebar-logo"> LOGO</div>
+                <div className="sidebar-logo">  <Football width={40} height={40} /></div>
 
                 <div
                     className={getSelectedTab(Navbar.DASHBOARD)}
