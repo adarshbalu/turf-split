@@ -3,20 +3,22 @@
   justify-content: center;
 }
 .login-box {
-  background-color: rgb(255, 255, 255);
+  background-color: #f2f6ff;
   padding: 20px 30px 20px 30px;
-  height: 300px;
-  width: 300px;
+  height: 350px;
+  width: 400px;
   border-radius: 15px;
   display: block;
   margin-top: 50vh;
   transform: translateY(-50%);
-  box-shadow: 5px 10px 12px #a3a3a3;
+  box-shadow: inset 3px 3px 12px #a3a3a3;
   box-sizing: content-box;
 }
 
-.h1-color {
+.login-box > h1 {
   color: black;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .login-button {
@@ -33,7 +35,7 @@
 }
 
 .form-padding {
-  padding-top: 30px;
+  padding: 50px 20px 0px;
 }
 
 .input-field {
@@ -46,7 +48,7 @@
   font-size: 12pt;
   padding: 10px 10px 0px 10px;
   margin: 0px auto;
-  background-color: rgb(255, 255, 255);
+  background-color: #f2f6ff;
   width: 75%;
 }
 
