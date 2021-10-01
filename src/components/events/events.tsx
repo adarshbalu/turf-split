@@ -30,7 +30,7 @@ const EventsPage: FunctionComponent<Event> = () => {
   };
 
   const removeEventHandler = async (id: number) => {
-    await api.delete(`/events/${id}`);
+    // await api.delete(`/events/${id}`);
     const newEventList = events.filter((event: Event) => {
       return event.id !== id;
     });
