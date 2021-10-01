@@ -1,14 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ContactCard from "./EventCard";
-import Event from "../types/Event";
-
-// interface Event {
-//     name: string,
-//     email: string,
-//     id:number
-
-// }
+import Event from "../../types/event";
 
 interface Props {
   getEventId: (id: number) => void;
