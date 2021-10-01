@@ -48,7 +48,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
             </div>
             {/* Sidebar bottom section - Logout */}
             <div className="sidebar-bottom">
-                <div onClick={logoutUser}>Logout</div>
+                <div className="logout-button" onClick={logoutUser}>Logout</div>
             </div>
         </nav>
     </>);
