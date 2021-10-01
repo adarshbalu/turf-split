@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
+import { EventContext, EventContextType } from "../../contexts/event_context";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AddEvent from "./components/AddEvent";
+import AddEvent from "./AddEvent";
 // import EventCard from "./components/EventCard";
-import EventList from "./components/EventList";
-import Page from "./components/Page";
-import api from "./api/events";
-import Event from "./types/Event";
-import "./App.css";
+import EventList from "./EventList";
+import Page from "./Page";
+import api from "../../services/api_service";
+import Event from "../../types/event";
 
-// interface Event {
-//     name: string,
-//     email: string,
-//     id:number
-
-// }
-
-function App() {
+const EventsPage: FunctionComponent<Event> = () => {
   const [events, setEvents] = useState<Array<Event>>([]);
 
   const retrieveEvents = async () => {
@@ -72,6 +70,6 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
-export default App;
+export default EventsPage;
