@@ -1,30 +1,75 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import React, {
+  FunctionComponent,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { EventContext, EventContextType } from "../../contexts/event_context";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AddEvent from "./AddEvent";
+// import EventCard from "./components/EventCard";
+import EventList from "./EventList";
+import Page from "./Page";
+import api from "../../services/api_service";
+import Event from "../../types/event";
 
-interface EventsPageProps {
+const EventsPage: FunctionComponent<Event> = () => {
+  const [events, setEvents] = useState<Array<Event>>([]);
 
-}
+  const retrieveEvents = async () => {
+    const response = await api.get("/events");
+    return response.data;
+  };
 
-const EventsPage: FunctionComponent<EventsPageProps> = () => {
+  const addEventHandler = async (event: Event) => {
+    const request = {
+      ...event,
+    };
+    const response = await api.post("/events", request);
+    setEvents([...events, response.data]);
+  };
 
-    const { allEvents } = useContext(EventContext) as EventContextType;
-    useEffect(() => {
-        displayAllEvents();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [allEvents]);
+  const removeEventHandler = async (id: number) => {
+    await api.delete(`/events/${id}`);
+    const newEventList = events.filter((event: Event) => {
+      return event.id !== id;
+    });
+    setEvents(newEventList);
+  };
+  useEffect(() => {
+    const getAllEvents = async () => {
+      const allEvents = await retrieveEvents();
+      if (allEvents) setEvents(allEvents);
+    };
+    getAllEvents();
+  }, []);
 
-    const displayAllEvents = () => {
-        const ul: HTMLUListElement = document.querySelector("#events-list")!;
-        for (const event of allEvents) {
-            const li: HTMLLIElement = document.createElement("li");
-            li.innerText = event.name;
-            ul.appendChild(li);
-        }
-    }
-    return (<>
-
-        <ul id="events-list"></ul>
-    </>);
-}
+  return (
+    <div className="ui container">
+      <Router>
+        <Page />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <EventList
+                {...props}
+                events={events}
+                getEventId={removeEventHandler}
+              />
+            )}
+          />
+          <Route
+            path="/add"
+            render={(props) => (
+              <AddEvent {...props} addEventHandler={addEventHandler} />
+            )}
+          />
+        </Switch>
+      </Router>
+    </div>
+  );
+};
 
 export default EventsPage;
