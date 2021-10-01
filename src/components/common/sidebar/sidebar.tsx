@@ -9,6 +9,17 @@ interface SideBarProps {
 const SideBar: FunctionComponent<SideBarProps> = () => {
     const { navbar, changeTab } = useContext(NavbarContext);
     const { logoutUser } = useContext(AuthContext) as AuthContextType;
+    const unSelectedTabClass: string = "sidebar-item ";
+    const selectorTabClass: string = " sidebar-item__selected";
+    const selectedTabClass: string = unSelectedTabClass + selectorTabClass;
+
+    const getSelectedTab = (nav: Navbar): string => {
+        if (nav === navbar) {
+            return selectedTabClass;
+        } else {
+            return unSelectedTabClass;
+        }
+    }
 
     return (<>
         {/* Sidebar */}
@@ -18,26 +29,26 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
                 <div className="sidebar-logo"> LOGO</div>
 
                 <div
-                    className={navbar === Navbar.DASHBOARD ? "sidebar-item sidebar-item__selected" : "sidebar-item"}
+                    className={getSelectedTab(Navbar.DASHBOARD)}
                     onClick={() => changeTab(Navbar.DASHBOARD)}>
                     Dashboard
                 </div>
 
                 <div
-                    className={navbar === Navbar.EVENTS ? "sidebar-item sidebar-item__selected" : "sidebar-item"}
+                    className={getSelectedTab(Navbar.EVENTS)}
                     onClick={() => changeTab(Navbar.EVENTS)}>
                     Events
                 </div>
 
                 <div
-                    className={navbar === Navbar.PROFILE ? "sidebar-item sidebar-item__selected" : "sidebar-item"} onClick={() => changeTab(Navbar.PROFILE)}>
+                    className={getSelectedTab(Navbar.PROFILE)} onClick={() => changeTab(Navbar.PROFILE)}>
                     Profile
                 </div>
 
             </div>
             {/* Sidebar bottom section - Logout */}
             <div className="sidebar-bottom">
-                <div onClick={logoutUser}>Logout</div>
+                <div className="logout-button" onClick={logoutUser}>Logout</div>
             </div>
         </nav>
     </>);

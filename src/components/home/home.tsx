@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
 import { AuthContext, AuthState } from "../../contexts/auth_context";
 import { NavbarContext, Navbar } from "../../contexts/nav_context";
@@ -16,7 +16,8 @@ const HomePage: FunctionComponent<HomeProps> = () => {
     const { authState, } = useContext(AuthContext);
     const history = useHistory();
     const { navbar } = useContext(NavbarContext);
-
+    const [title, setTitle] = useState<string>("Dashboard");
+    const [tab, setTab] = useState(<Dashboard />);
     useEffect(() => {
         if (authState === AuthState.UNAUTHENTICATED) {
             routeChange();
@@ -25,14 +26,35 @@ const HomePage: FunctionComponent<HomeProps> = () => {
     }, [authState]);
 
 
-    useEffect(() => { }, [navbar]);
+    useEffect(() => {
+        getCurrentTab(navbar);
+    }, [navbar]);
 
     const routeChange = () => {
         let path = `/login`;
         history.push(path);
     };
 
-    const titles: string[] = ["Dashboard", "Events", "Profile"]
+    const getCurrentTab = (navbar: Navbar) => {
+
+        const titles: string[] = ["Dashboard", "Events", "Profile"];
+        switch (navbar) {
+            case Navbar.DASHBOARD: setTab(<Dashboard />);
+                setTitle(titles[0]);
+                break;
+
+            case Navbar.PROFILE: setTab(<Profile />);
+                setTitle(titles[2]);
+                break;
+
+
+            default: setTab(<EventsPage />);
+                setTitle(titles[1]);
+        }
+
+    }
+
+
     return (
         <>
 
@@ -43,13 +65,12 @@ const HomePage: FunctionComponent<HomeProps> = () => {
                 </div>
 
                 <div className="dashboard-right">
-                    <MainHeader title={navbar === Navbar.DASHBOARD ? titles[0] : navbar === Navbar.EVENTS ? titles[1] : titles[2]} />
+                    <MainHeader title={title} />
 
+                    <div className="dashboard-body">
 
-                    {navbar === Navbar.DASHBOARD ? <Dashboard /> : <></>}
-                    {navbar === Navbar.PROFILE ? <Profile /> : <></>}
-                    {navbar === Navbar.EVENTS ? <EventsPage /> : <></>}
-
+                        {tab}
+                    </div>
                 </div>
 
             </div>

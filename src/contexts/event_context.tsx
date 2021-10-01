@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import APIService from "../services/api_service";
-import Event from "../types/event";
+import Event, { EventType } from "../types/event";
 import URL from "../utils/urls";
 
 export type EventContextType = {
@@ -49,7 +49,7 @@ const EventContextProvider = (props: Props) => {
     const fetchAllEvents = async () => {
         try {
             const data = await APIService.get(URL.eventsPath) as [];
-            let allEventsList: Event[] = data.map((e) => new Event(e));
+            let allEventsList: Event[] = data.map((e) => new Event(e as EventType));
             setAllEvents(allEventsList);
         } catch (e) {
             console.log(`Error : ${e}`);

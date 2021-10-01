@@ -12,7 +12,7 @@ import {
 const LoginBox: FunctionComponent = () => {
   const history = useHistory();
 
-  const { authState, loginUser, addUsername, userState, } = useContext(
+  const { authState, loginUser, addUsername, userState } = useContext(
     AuthContext
   ) as AuthContextType;
 
@@ -24,7 +24,6 @@ const LoginBox: FunctionComponent = () => {
 
   useEffect(() => {
     if (authState === AuthState.AUTHENTICATED) {
-
       if (userState === UserState.NEW) {
         setUserName();
       } else {
@@ -58,7 +57,7 @@ const LoginBox: FunctionComponent = () => {
   return (
     <div className="main-div">
       <div className="login-box">
-        <h1 className="h1-color">Login</h1>
+        <h1>Login</h1>
         <form
           className="form-padding"
           action="submit"
