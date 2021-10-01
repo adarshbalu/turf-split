@@ -24,7 +24,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     return (
         <>
 
-            <div className="">
+            <div>
                 Dashboard
 
 

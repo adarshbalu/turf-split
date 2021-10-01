@@ -45,11 +45,11 @@ const HomePage: FunctionComponent<HomeProps> = () => {
                 <div className="dashboard-right">
                     <MainHeader title={navbar === Navbar.DASHBOARD ? titles[0] : navbar === Navbar.EVENTS ? titles[1] : titles[2]} />
 
-
+                    <div className="dashboard-body">
                     {navbar === Navbar.DASHBOARD ? <Dashboard /> : <></>}
                     {navbar === Navbar.PROFILE ? <Profile /> : <></>}
                     {navbar === Navbar.EVENTS ? <EventsPage /> : <></>}
-
+                    </div>
                 </div>
 
             </div>

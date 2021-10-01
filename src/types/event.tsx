@@ -7,15 +7,7 @@ export default class Event {
     players: Array<Player>;
     isPaid: boolean;
 
-    constructor(obj: {
-        name: string,
-        id: number,
-        date: string,
-        amount: number,
-        paidBy: number,
-        players: Array<Player>,
-        isPaid: boolean
-    }) {
+    constructor(obj: EventType) {
         this.date = new Date(obj["date"]);
         this.id = obj["id"];
         this.amount = obj["amount"];
@@ -29,4 +21,16 @@ export default class Event {
 export interface Player {
     id: number;
     count: number;
+}
+
+export interface EventType {
+
+    name: string,
+    id: number,
+    date: string,
+    amount: number,
+    paidBy: number,
+    players: Array<Player>,
+    isPaid: boolean
+
 }
