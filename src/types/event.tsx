@@ -1,6 +1,6 @@
 export default class Event {
     name: string;
-    id: number;
+    id?: number;
     date: Date;
     amount: number;
     paidBy: number;
@@ -26,7 +26,7 @@ export interface Player {
 export interface EventType {
 
     name: string,
-    id: number,
+    id?: number,
     date: string,
     amount: number,
     paidBy: number,

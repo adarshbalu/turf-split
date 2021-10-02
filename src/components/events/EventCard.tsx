@@ -23,7 +23,7 @@ const EventCard = (props: Props) => {
       </div>
       <i
         className="trash icon alternate outline red"
-        onClick={() => props.clickHandler(id)}
+        onClick={() => props.clickHandler(10)}
       />
     </div>
   );

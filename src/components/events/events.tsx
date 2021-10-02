@@ -1,10 +1,8 @@
 import React, {
   FunctionComponent,
-  useContext,
   useState,
   useEffect,
 } from "react";
-import { EventContext, EventContextType } from "../../contexts/event_context";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddEvent from "./AddEvent";
 // import EventCard from "./components/EventCard";
@@ -46,7 +44,7 @@ const EventsPage: FunctionComponent<Event> = () => {
 
   return (
     <div className="ui container">
-      <Router>
+      {/* <Router>
         <Page />
         <Switch>
           <Route
@@ -67,7 +65,7 @@ const EventsPage: FunctionComponent<Event> = () => {
             )}
           />
         </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 };

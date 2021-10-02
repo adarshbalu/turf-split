@@ -6,6 +6,7 @@ import AuthContextProvider from './contexts/auth_context';
 import LandingPage from './components/landing/landing';
 import NavbarContextProvider from './contexts/nav_context';
 import EventContextProvider from './contexts/event_context';
+import CreateEvent from './components/events/add_event';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           <Route path="/home">
             <HomePage />
           </Route>
+              <Route path="/add">
+                <CreateEvent />
+              </Route>
       </Switch>
     </Router>
         </EventContextProvider>

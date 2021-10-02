@@ -1,4 +1,5 @@
 import { FunctionComponent, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { EventContext, EventContextType } from "../../contexts/event_context";
 
 interface EventsPageProps {
@@ -22,7 +23,8 @@ const EventsPage: FunctionComponent<EventsPageProps> = () => {
         }
     }
     return (<>
-
+        <Link to="/add">
+            <h3>New event</h3></Link>
         <ul id="events-list"></ul>
     </>);
 }
