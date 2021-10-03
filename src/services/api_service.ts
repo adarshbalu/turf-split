@@ -11,7 +11,7 @@ export default class APIService {
         throw APIService.error;
       }
     } catch (e) {
-      console.log(`Fetech Error : ${e}`);
+      console.log(`Fetch Error : ${e}`);
       throw APIService.error;
     }
   }
@@ -33,7 +33,7 @@ export default class APIService {
         throw APIService.error;
       }
     } catch (e) {
-      console.log(`Fetech Error : ${e}`);
+      console.log(`Fetch Error : ${e}`);
       throw APIService.error;
     }
   }
@@ -54,11 +54,27 @@ export default class APIService {
         throw APIService.error;
       }
     } catch (e) {
-      console.log(`Fetech Error : ${e}`);
+      console.log(`Fetch Error : ${e}`);
     }
   }
 
-  static async delete(): Promise<any> {
-    console.log("DELETE");
+  static async delete(url: string, id: number): Promise<any> {
+    try {
+      const res: Response = await fetch(url + id, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      console.log(res);
+      if (res.ok) {
+        const data = await res.json();
+        return data;
+      } else {
+        throw APIService.error;
+      }
+    } catch (e) {
+      console.log(`Fetch Error : ${e}`);
+    }
   }
 }

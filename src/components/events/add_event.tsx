@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { EventContext, EventContextType, EventState } from "../../contexts/event_context";
 import Event, { EventType, Player } from "../../types/event";
@@ -18,7 +18,13 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
 
     const history = useHistory();
 
-    const { createEvent, eventState } = useContext(EventContext) as EventContextType;
+    const { createEvent, createEventState: eventState, allUsers } = useContext(EventContext) as EventContextType;
+
+    useEffect(() => {
+        getAllUsers();
+    }, []);
+
+
 
     const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -37,6 +43,19 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
             history.go(-1);
         }
     };
+
+    const getAllUsers = () => {
+        const paidBy: HTMLSelectElement = document.querySelector("#paidBy")!;
+        paidBy.innerHTML = "";
+        for (const user of allUsers) {
+            const option: HTMLOptionElement = document.createElement("option");
+            option.setAttribute("value", "" + user.id);
+            option.innerText = user.email;
+            paidBy.appendChild(option);
+        }
+
+    }
+
     return (
         <>
             <div className="ui main">
@@ -75,19 +94,23 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
                             }
                         />
                     </div>
-                    <div className="field">
+                    <div className="field" >
                         <label> Paid By </label>
                         <select
+                            id="paidBy"
                             name="paidBy"
                             className="ui selection dropdown"
                             placeholder="Amount Paid By"
                             value={paidBy}
-                            onChange={(e) => setPaidBy(parseInt(e.target.value))}
+                            onChange={(e) => {
+
+                                setPaidBy(parseInt(e.target.value))
+                            }}
                         >
-                            <option value="0">Alabama</option>
+                            {/* <option value="0">Alabama</option>
                             <option value="1">Alaska</option>
                             <option value="2">Arizona</option>
-                            <option value="3">Arkansas</option>
+                            <option value="3">Arkansas</option> */}
                         </select>
                     </div>
                     {
