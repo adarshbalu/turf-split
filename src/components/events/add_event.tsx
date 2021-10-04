@@ -1,5 +1,11 @@
-import { time } from "console";
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FunctionComponent,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useHistory } from "react-router-dom";
 import {
   EventContext,
@@ -7,6 +13,7 @@ import {
   EventState,
 } from "../../contexts/event_context";
 import Event, { EventType, Player } from "../../types/event";
+import User from "../../types/user";
 import "./AddEvent.css";
 
 interface CreateEventProps {}
@@ -18,6 +25,8 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [amount, setAmount] = useState<number>(400);
   const [paidBy, setPaidBy] = useState<number>(0);
   const [players, setPlayers] = useState<Array<Player>>([]);
+  const [playerOptions, setPlayerOptions] = useState<Array<User>>([]);
+  const [addedPlayers, setAddedPlayers] = useState<Array<User>>([]);
 
   const history = useHistory();
 
@@ -25,11 +34,15 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
     createEvent,
     createEventState: eventState,
     allUsers,
+    fetchUsers,
   } = useContext(EventContext) as EventContextType;
 
   useEffect(() => {
-    getAllUsers();
+    // fetchUsers();
+    setPlayerOptions(allUsers);
   }, []);
+
+  useEffect(() => console.log(addedPlayers), [playerOptions]);
 
   const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,17 +61,6 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
       setEvent(new Event(e));
       await createEvent(e);
       history.go(-1);
-    }
-  };
-
-  const getAllUsers = () => {
-    const paidBy: HTMLSelectElement = document.querySelector("#paidBy")!;
-    paidBy.innerHTML = "";
-    for (const user of allUsers) {
-      const option: HTMLOptionElement = document.createElement("option");
-      option.setAttribute("value", "" + user.id);
-      option.innerText = user.email;
-      paidBy.appendChild(option);
     }
   };
 
@@ -97,24 +99,109 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               onChange={(e) => setAmount(parseInt(e.target.value))}
             />
           </div>
-          <div className="select field">
+          <div className="field">
             <label> Paid By </label>
-            <select
-              id="paidBy"
-              name="paidBy"
-              className="ui selection dropdown"
-              placeholder="Amount Paid By"
-              value={paidBy}
-              onChange={(e) => {
-                setPaidBy(parseInt(e.target.value));
-              }}
-            >
-              {/* <option value="0">Alabama</option>
-                            <option value="1">Alaska</option>
-                            <option value="2">Arizona</option>
-                            <option value="3">Arkansas</option> */}
-            </select>
+
+            {React.createElement(
+              "select",
+              {
+                placeholder: "Amount Paid By",
+                value: { paidBy },
+                name: "paidBy",
+                onChange: (e: ChangeEvent<HTMLSelectElement>) => {
+                  console.log(e.target.value);
+                },
+              },
+              allUsers.map((user) => {
+                return React.createElement(
+                  "option",
+                  {
+                    value: user.id,
+                  },
+                  user.email
+                );
+              })
+            )}
           </div>
+
+          <div className="multi-select">
+            <div className="player-select field">
+              <label> Players </label>
+              {React.createElement(
+                "select",
+                {
+                  placeholder: "Players",
+                  value: "",
+                  multiple: true,
+                  name: "players",
+                  onChange: (e: ChangeEvent<HTMLSelectElement>) => {
+                    let selectedPlayer = JSON.parse(e.target.value) as User;
+                    setPlayers((prev) => [
+                      ...prev,
+                      {
+                        id: selectedPlayer.id,
+                        count: 1,
+                      } as Player,
+                    ]);
+                    setPlayerOptions((prev) =>
+                      prev.filter(
+                        (player: User) => player.id != selectedPlayer.id
+                      )
+                    );
+                    setAddedPlayers((prev) => [...prev, selectedPlayer]);
+                  },
+                },
+                playerOptions.map((user) => {
+                  return React.createElement(
+                    "option",
+                    {
+                      value: JSON.stringify(user),
+                    },
+                    user.email
+                  );
+                })
+              )}
+            </div>
+
+            <div className="selected-players">
+              <label>Added Players</label>
+              {React.createElement(
+                "select",
+                {
+                  placeholder: "Players",
+                  value: "",
+                  multiple: true,
+                  name: "players",
+                  onChange: (e: ChangeEvent<HTMLSelectElement>) => {
+                    let selectedPlayer = JSON.parse(e.target.value) as User;
+                    setPlayers((prev) => [
+                      ...prev,
+                      {
+                        id: selectedPlayer.id,
+                        count: 1,
+                      } as Player,
+                    ]);
+                    setAddedPlayers((prev) =>
+                      prev.filter(
+                        (player: User) => player.id != selectedPlayer.id
+                      )
+                    );
+                    setPlayerOptions((prev) => [...prev, selectedPlayer]);
+                  },
+                },
+                addedPlayers.map((user) => {
+                  return React.createElement(
+                    "option",
+                    {
+                      value: JSON.stringify(user),
+                    },
+                    user.email
+                  );
+                })
+              )}
+            </div>
+          </div>
+
           <div className="button-row">
             {eventState !== EventState.LOADING ? (
               <button className="add-button">Add</button>
