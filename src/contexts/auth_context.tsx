@@ -186,7 +186,7 @@ const AuthContextProvider = (props: Props) => {
   const clearUserData = () => {
     setAuthState(AuthState.UNAUTHENTICATED);
     setUser({} as User);
-    LocalStorage.deleteDate(LocalStorage.USER_DATA);
+    LocalStorage.deleteData(LocalStorage.USER_DATA);
   };
 
   // Check if userdata is saved in local storage

@@ -115,38 +115,21 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
                             <option value="3">Arkansas</option> */}
             </select>
           </div>
-          {
-            // Players list section
-            /* <div className="field">
-                        <label> Players </label>
-                        <select
-                            name="players"
-                            className="ui selection dropdown"
-                            placeholder="Players"
-                            value={players[0].id}
-                            onChange={(e)=>setPlayers([...players,{} as Player])}
-                        >
-                            <option value="0">Amal</option>
-                            <option value="1">Hari</option>
-                            <option value="2">Amla</option>
-                            <option value="3">Alan</option>
-                        </select>
-                    </div> */
-          }
-
-          {eventState !== EventState.LOADING ? (
-            <button className="button">Add</button>
-          ) : (
-            <p>Creating event</p>
-          )}
+          <div className="button-row">
+            {eventState !== EventState.LOADING ? (
+              <button className="add-button">Add</button>
+            ) : (
+              <p>Creating event</p>
+            )}
+            <button
+              className="split-button"
+              onClick={() => console.log("Clicked")}
+              style={{ backgroundColor: "#37474F" }}
+            >
+              Split
+            </button>
+          </div>
         </form>
-        <button
-          className="button"
-          onClick={() => console.log("Clicked")}
-          style={{ backgroundColor: "#37474F" }}
-        >
-          Split
-        </button>
       </div>
     </>
   );

@@ -1,11 +1,26 @@
-.button {
+.event-button {
   color: white;
-  background-color: blueviolet;
+  background: linear-gradient(#2b96fa, #63b4ff);
   /* padding: 7px 20px; */
-  padding: 0.5em 1.2em;
-  margin-top: 7px;
+  padding: 1em 1.5em;
+  margin: 5px 10px;
   border-radius: 4px;
+  border: none;
   cursor: pointer;
+  font-size: medium;
+}
+.event-header {
+  display: flex;
+  padding: 10px 20px 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+.event-header > h2 {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.event-body {
+  padding: 10px 20px 0px;
 }
 .field {
   margin-top: 10px;
@@ -25,4 +40,28 @@ select {
   border: solid 1px #ccc;
   border-radius: 6px;
   padding: 0.5rem;
+}
+.add-button {
+  color: white;
+  background-color: #32cd32;
+  padding: 0.5em 1.5em;
+  margin: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+}
+.split-button {
+  color: white;
+  background: linear-gradient(#2b96fa, #63b4ff);
+  padding: 0.5em 1.5em;
+  margin: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+}
+.button-row {
+  display: flex;
+  margin-top: 20px;
 }
