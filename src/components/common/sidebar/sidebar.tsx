@@ -1,14 +1,15 @@
 import { FunctionComponent, useContext } from "react";
-import { AuthContext, AuthContextType } from "../../../contexts/auth_context";
+import { AuthContext, AuthContextType, AuthState } from "../../../contexts/auth_context";
 import { Navbar, NavbarContext } from "../../../contexts/nav_context";
 import '../sidebar/sidebar.css';
 import { ReactComponent as Football } from "../../../assets/football.svg";
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface SideBarProps { }
 
 const SideBar: FunctionComponent<SideBarProps> = () => {
-    const { navbar, changeTab } = useContext(NavbarContext);
-    const { logoutUser } = useContext(AuthContext) as AuthContextType;
+    const { navbar, changeTab, resetTab } = useContext(NavbarContext);
+    const { logoutUser, authState } = useContext(AuthContext) as AuthContextType;
     const unSelectedTabClass: string = "sidebar-item ";
     const selectorTabClass: string = " sidebar-item__selected";
     const selectedTabClass: string = unSelectedTabClass + selectorTabClass;
@@ -48,7 +49,11 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
             </div>
             {/* Sidebar bottom section - Logout */}
             <div className="sidebar-bottom">
-                <div className="logout-button" onClick={logoutUser}>Logout</div>
+                {authState === AuthState.LOADING ? <CircularProgress /> : <div className="logout-button" onClick={() => {
+                    logoutUser();
+                    resetTab();
+                }}>Logout</div>}
+
             </div>
         </nav>
     </>);

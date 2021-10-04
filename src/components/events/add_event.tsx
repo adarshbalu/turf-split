@@ -14,7 +14,7 @@ interface CreateEventProps {}
 const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [event, setEvent] = useState<Event>({} as Event);
   const [name, setName] = useState<string>("");
-  const [datetime, setDateTime] = useState<string>("");
+  const [dateTime, setDateTime] = useState<string>("");
   const [amount, setAmount] = useState<number>(400);
   const [paidBy, setPaidBy] = useState<number>(0);
   const [players, setPlayers] = useState<Array<Player>>([]);
@@ -33,13 +33,13 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
 
   const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (name === "" || datetime === "") {
+    if (name === "" || dateTime === "") {
       alert("All Fields are mandatory.");
       return;
     } else {
       let e: EventType = {
         name: name,
-        datetime: datetime,
+        dateTime: dateTime,
         paidBy: paidBy,
         amount: amount,
         isPaid: false,
@@ -83,7 +83,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               type="datetime-local"
               name="date"
               //   placeholder="Enter Date and Time"
-              value={`${datetime}`}
+              value={`${dateTime}`}
               onChange={(e) => setDateTime(e.target.value)}
             />
           </div>

@@ -14,7 +14,11 @@ const EventList = (props: Props) => {
 
   const renderEventList = props.events.map((event: Event) => {
     return (
-      <ContactCard event={event} clickHandler={deleteEventHandler} key={10} />
+      <ContactCard
+        event={event}
+
+        key={10}
+      />
     );
   });
   return (

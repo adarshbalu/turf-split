@@ -8,11 +8,12 @@ import {
   AuthState,
   UserState,
 } from "../../contexts/auth_context";
+import { LinearProgress } from "@mui/material";
 
 const LoginBox: FunctionComponent = () => {
   const history = useHistory();
 
-  const { authState, loginUser, addUsername, userState } = useContext(
+  const { autoLogin, authState, loginUser, addUsername, userState } = useContext(
     AuthContext
   ) as AuthContextType;
 
@@ -21,6 +22,14 @@ const LoginBox: FunctionComponent = () => {
   const handleClick = async () => {
     await loginUser(email);
   };
+
+  useEffect(() => {
+    if (autoLogin()) {
+      let path = `/home`;
+      history.push(path);
+    }
+
+  }, [authState]);
 
   useEffect(() => {
     if (authState === AuthState.AUTHENTICATED) {
@@ -95,7 +104,7 @@ const LoginBox: FunctionComponent = () => {
           </button>
         </form>
         {/* {JSON.stringify(currentUser) ?? "No user logged in"} */}
-        {authState === AuthState.LOADING ? <h3>Loading</h3> : <></>}
+        {authState === AuthState.LOADING ? <LinearProgress /> : <></>}
       </div>
     </div>
   );

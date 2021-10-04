@@ -8,13 +8,12 @@ import Event from "../../types/event";
 
 // }
 interface Props {
-  clickHandler: (id: number) => void;
   event: Event;
   key: number;
 }
 
 const EventCard = (props: Props) => {
-  const { name, date, id } = props.event;
+  const { name, dateTime, id } = props.event;
   return (
     <div
       className="item"
@@ -30,12 +29,9 @@ const EventCard = (props: Props) => {
         <div className="header" style={{ fontSize: ".95rem", fontWeight: 600 }}>
           {name}
         </div>
-        <div> on {date}</div>
+        <div> on {dateTime}</div>
       </div>
-      <i
-        className="trash icon alternate outline red"
-        onClick={() => props.clickHandler(10)}
-      />
+      <i className="trash icon alternate outline red" />
     </div>
   );
 };
