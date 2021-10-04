@@ -8,7 +8,7 @@ import Event from "../../types/event";
 
 // }
 interface Props {
-  clickHandler: (id: number) => void;
+
   event: Event;
   key: number;
 }
@@ -23,7 +23,7 @@ const EventCard = (props: Props) => {
       </div>
       <i
         className="trash icon alternate outline red"
-        onClick={() => props.clickHandler(10)}
+
       />
     </div>
   );

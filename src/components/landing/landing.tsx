@@ -1,17 +1,27 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import "./landing.css";
 import "../../index.css";
 import { useHistory } from "react-router";
 import { ReactComponent as Logo } from "../../assets/goal.svg";
+import { AuthContext } from "../../contexts/auth_context";
 
 interface LandingPageProps {}
 
 const LandingPage: FunctionComponent<LandingPageProps> = () => {
   const history = useHistory();
+  const { autoLogin, authState } = useContext(AuthContext);
+  useEffect(() => {
+    if (autoLogin()) {
+      let path = `/home`;
+      history.push(path);
+    }
 
+  }, [authState]);
   const routeChange = () => {
+
     let path = `/login`;
     history.push(path);
+
   };
 
   return (

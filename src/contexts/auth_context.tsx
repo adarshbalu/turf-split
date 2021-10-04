@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import APIService from "../services/api_service";
 import User from "../types/user";
 import URL from "../utils/urls";
+import LocalStorage from '../services/local_storage';
 
 export enum AuthState {
   AUTHENTICATED,
@@ -21,6 +22,7 @@ export type AuthContextType = {
   logoutUser: () => void;
   user: User;
   addUsername: (username: string) => Promise<void>;
+  autoLogin: () => boolean;
 };
 
 type Props = {
@@ -34,6 +36,7 @@ const initialState: AuthContextType = {
   logoutUser: () => {},
   user: {} as User,
   addUsername: async (username: string) => {},
+  autoLogin: () => { return false; }
 };
 
 export const AuthContext = createContext<AuthContextType>(initialState);
@@ -46,12 +49,32 @@ const AuthContextProvider = (props: Props) => {
   // Stores all the users registered
   let allUsers: User[] = [];
 
+  // Save userdata to storage
+  const storeUserData = (user: User) => {
+    LocalStorage.setData(LocalStorage.USER_DATA, JSON.stringify(user));
+  }
+
+
+  const autoLogin = (): boolean => {
+    if (
+      LocalStorage.checkData(LocalStorage.USER_DATA)) {
+      const loggedUser: User = JSON.parse(LocalStorage.getData(LocalStorage.USER_DATA)) as User;
+      setUser(loggedUser);
+      setAuthState(AuthState.AUTHENTICATED);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   const getUserData = async (id: number): Promise<void> => {
     try {
       const data: User = await APIService.get(URL.usersPath + id) as User;
         setUserState(UserState.EXISTING);
         setUser(data);
         setAuthState(AuthState.AUTHENTICATED);
+      storeUserData(data);
         checkUsernameAdded();
         // return data;
 
@@ -122,6 +145,7 @@ const AuthContextProvider = (props: Props) => {
       const data = await APIService.post(URL.usersPath, newUser) as User;
       allUsers = [...allUsers, newUser];
       setUser(data);
+      storeUserData(data);
       setAuthState(AuthState.AUTHENTICATED);
       setUserState(UserState.NEW);
 
@@ -137,6 +161,7 @@ const AuthContextProvider = (props: Props) => {
   // Login user after checking if the user is already registered
   const loginUser = async (email: string) => {
     setAuthState(AuthState.LOADING);
+    await new Promise(f => setTimeout(f, 2000));
 
     if (await checkUser(email)) {
       // If the user exists
@@ -149,6 +174,8 @@ const AuthContextProvider = (props: Props) => {
 
   // Loogout the user by changing the authstate
   const logoutUser = async () => {
+    setAuthState(AuthState.LOADING);
+    await new Promise(f => setTimeout(f, 2000));
     console.log("Logout");
     clearUserData();
   };
@@ -157,6 +184,7 @@ const AuthContextProvider = (props: Props) => {
   const clearUserData = () => {
     setAuthState(AuthState.UNAUTHENTICATED);
     setUser({} as User);
+    LocalStorage.deleteDate(LocalStorage.USER_DATA);
   };
 
   // Check if userdata is saved in local storage
@@ -181,6 +209,7 @@ const AuthContextProvider = (props: Props) => {
         authState,
         userState,
         addUsername,
+        autoLogin
       }}
     >
       {props.children}

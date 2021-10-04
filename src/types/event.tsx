@@ -16,6 +16,19 @@ export default class Event {
         this.players = obj["players"];
         this.name = obj["name"];
     }
+
+    json(): EventType {
+        const event: EventType = {
+            name: this.name,
+            date: this.date.toDateString(),
+            amount: this.amount,
+            paidBy: this.paidBy,
+            isPaid: this.isPaid,
+            players: this.players,
+            id: this.id,
+        } as EventType;
+        return event;
+    }
 }
 
 export interface Player {
