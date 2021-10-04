@@ -17,7 +17,7 @@ const EventList = (props: Props) => {
       <ContactCard
         event={event}
         clickHandler={deleteEventHandler}
-        key={event.id}
+        key={10}
       />
     );
   });

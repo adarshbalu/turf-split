@@ -1,6 +1,6 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
-import Event from "../types/Event";
+import Event from "../../types/event";
 
 // interface Event {
 //     name: string,
@@ -57,7 +57,7 @@ class AddEvent extends React.Component<Props> {
               type="text"
               name="date"
               placeholder="Enter Date and Time"
-              value={this.state.date}
+              value={`${this.state.date}`}
               onChange={(e) => this.setState({ date: e.target.value })}
             />
           </div>
