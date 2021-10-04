@@ -7,15 +7,17 @@ import URL from "../utils/urls";
 export type EventContextType = {
     createEvent: (event: EventType) => Promise<void>,
     fetchAllEvents: () => void,
-    editEvent: () => void,
-    split: () => void,
+    editEvent: (event: EventType) => Promise<void>,
+    split: (event: EventType) => Promise<void>,
     event: Event,
     allEvents: Array<Event>,
     createEventState: EventState,
     deleteEvent: (id: number) => Promise<void>,
     deleteEventState: EventState,
     fetchUsers: () => Promise<void>,
-    allUsers: User[]
+    allUsers: User[],
+    editEventState: EventState,
+    splitState: EventState,
 }
 
 export enum EventState {
@@ -35,11 +37,13 @@ const initialState: EventContextType = {
     createEvent: async (event: EventType) => { },
     fetchAllEvents: async () => { },
     editEvent: async () => { },
-    split: async () => { },
+    split: async (event: EventType) => { },
     createEventState: EventState.NONE,
     deleteEvent: async (id: number) => { },
     deleteEventState: EventState.NONE,
-    fetchUsers: async () => { }
+    fetchUsers: async () => { },
+    splitState: EventState.NONE,
+    editEventState: EventState.NONE,
 
 }
 
@@ -51,6 +55,8 @@ const EventContextProvider = (props: Props) => {
     const [allEvents, setAllEvents] = useState<Array<Event>>(initialState.allEvents);
     const [createEventState, setCreateEventState] = useState<EventState>(EventState.NONE);
     const [deleteEventState, setDeleteEventState] = useState<EventState>(EventState.NONE);
+    const [editEventState, setEditEventState] = useState<EventState>(EventState.NONE);
+    const [splitState, setSplitState] = useState<EventState>(EventState.NONE);
     const [allUsers, setAllUsers] = useState<Array<User>>([]);
 
     useEffect(() => {
@@ -121,12 +127,50 @@ const EventContextProvider = (props: Props) => {
         }
     }
 
-    const editEvent = async () => { }
+    const editEvent = async (event: EventType) => {
+        try {
+            setEditEventState(EventState.LOADING);
+            await APIService.put(URL.eventsPath + event.id, event);
+            await fetchAllEvents();
+            setEditEventState(EventState.SUCCESS);
 
-    const split = async () => { }
+
+        } catch (e) {
+            console.log(`Error : ${e}`);
+            setEditEventState(EventState.ERROR);
+            setTimeout(() => {
+                setEditEventState(EventState.NONE);
+            }, 500);
+        }
+    }
+
+    const split = async (event: EventType) => {
+        try {
+            await fetchUsers();
+            setSplitState(EventState.LOADING);
+            let totalPlayers: number = 0;
+            event.players.forEach((p) => {
+                totalPlayers += p.count;
+            });
+            const amountPerPlayer: number = event.amount / totalPlayers;
+            event.players.forEach(async (p) => {
+                const currentUser: User = allUsers.filter((u) => u.id === p.id)[0];
+                await APIService.put(URL.usersPath + p.id, { ...currentUser, balance: currentUser.balance - (amountPerPlayer * p.count) });
+
+            });
+            setSplitState(EventState.SUCCESS);
+        }
+        catch (e) {
+            console.log(`Error : ${e}`);
+            setSplitState(EventState.ERROR);
+            setTimeout(() => {
+                setSplitState(EventState.NONE);
+            }, 500);
+        }
+    }
 
     return (
-        <EventContext.Provider value={{ allUsers, fetchUsers, deleteEvent, createEventState: createEventState, allEvents, event, createEvent, fetchAllEvents, editEvent, split, deleteEventState }}>
+        <EventContext.Provider value={{ editEventState, splitState, allUsers, fetchUsers, deleteEvent, createEventState: createEventState, allEvents, event, createEvent, fetchAllEvents, editEvent, split, deleteEventState }}>
             {props.children}
         </EventContext.Provider>
 
