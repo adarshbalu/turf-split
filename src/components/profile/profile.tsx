@@ -20,11 +20,14 @@ const Profile: FunctionComponent<ProfileProps> = () => {
   const [userEvents, setuserEvents] = useState<Array<UserEventType>>([]);
 
   const eventMap = (event: Event) => {
-    for (let i = 0; i < event.players.length; i++) {
-      // event.players[i].id === user.id ? return event.name : i
-      if (event.players[i].id === user.id) {
-        return event.name;
-      } else return 0;
+    if (event.players.length === 0) {
+      return 0;
+    } else {
+      for (let i = 0; i < event.players.length; i++) {
+        if (event.players[i].id === user.id) {
+          return event.name;
+        } else return 0;
+      }
     }
   };
 
@@ -32,7 +35,6 @@ const Profile: FunctionComponent<ProfileProps> = () => {
     let count = 0;
     allEvents.map((event) => {
       if (eventMap(event) !== 0) {
-        // console.log(event.players[0].count)
         for (let i = 0; i < event.players.length; i++) {
           count += event.players[i].count;
         }
