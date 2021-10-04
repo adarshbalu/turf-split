@@ -5,7 +5,8 @@ import { NavbarContext, Navbar } from "../../contexts/nav_context";
 import MainHeader from "../common/header/header";
 import SideBar from "../common/sidebar/sidebar";
 import Dashboard from "../dashboard/dashboard";
-import EventsPage from "../events/events-og";
+import EventList from "../events/EventList";
+import EventsList from "../events/EventList";
 import "../home/home.css";
 import Profile from "../profile/profile";
 interface HomeProps {}
@@ -46,7 +47,7 @@ const HomePage: FunctionComponent<HomeProps> = () => {
         break;
 
       default:
-        setTab(<EventsPage />);
+        setTab(<EventList />);
         setTitle(titles[1]);
     }
   };

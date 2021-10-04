@@ -9,6 +9,7 @@ export type NavContextType = {
 
     changeTab: (navbar: Navbar) => void,
     navbar: Navbar,
+    resetTab: () => void,
 }
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
 const initialState: NavContextType = {
     navbar: {} as Navbar,
     changeTab: (navbar: Navbar) => { },
+    resetTab: () => { },
 }
 
 export const NavbarContext = createContext<NavContextType>(initialState);
@@ -29,8 +31,13 @@ const NavbarContextProvider = (props: Props) => {
     const changeTab = (navbar: Navbar) => {
         setNavbar(navbar);
     }
+
+    const resetTab = () => {
+        setNavbar(Navbar.DASHBOARD);
+    }
+
     return (
-        <NavbarContext.Provider value={{ navbar, changeTab }}>
+        <NavbarContext.Provider value={{ resetTab, navbar, changeTab }}>
             {props.children}
         </NavbarContext.Provider>
 

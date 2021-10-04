@@ -1,29 +1,35 @@
 import React from "react";
 import Event from "../../types/event";
 
-// interface Event {
-//     name: string,
-//     email: string,
-//     id:number
 
-// }
 interface Props {
-  clickHandler: (id: number) => void;
-  event: Event;
   key: number;
+  event: Event;
+
 }
 
 const EventCard = (props: Props) => {
-  const { name, date, id } = props.event;
+  const { name, dateTime, id } = props.event;
   return (
-    <div className="item" style={{ padding: "10px" }}>
-      <div className="content">
-        <div className="header">{name}</div>
-        <div> on {date}</div>
+    <div
+      className=""
+      style={{
+        padding: "10px",
+        border: "1.25px",
+        borderStyle: "solid",
+        marginTop: "10px",
+        borderRadius: "7px",
+      }}
+    >
+      <div className="" >
+        <div className="">
+          {name}
+        </div>
+        <div> on {dateTime.toDateString()}</div>
       </div>
       <i
-        className="trash icon alternate outline red"
-        onClick={() => props.clickHandler(10)}
+        className=""
+
       />
     </div>
   );

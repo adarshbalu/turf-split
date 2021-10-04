@@ -36,4 +36,15 @@ export default class LocalStorage {
         }
     }
 
+    static deleteDate(key: string): void {
+        try {
+            if (LocalStorage.checkData(key)) {
+                localStorage.removeItem(key);
+            }
+        }
+        catch (e) {
+
+        }
+    }
+
 }

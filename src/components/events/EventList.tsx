@@ -1,35 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import ContactCard from "./EventCard";
+import EventCard from "./EventCard";
 import Event from "../../types/event";
+import { EventContext } from "../../contexts/event_context";
 
-interface Props {
-  getEventId: (id: number) => void;
-  events: Array<Event>;
-}
-const EventList = (props: Props) => {
-  const deleteEventHandler = (id: number) => {
-    props.getEventId(id);
-  };
 
-  const renderEventList = props.events.map((event: Event) => {
+const EventList = () => {
+
+  const { allEvents } = useContext(EventContext);
+  const renderEventList = allEvents.map((event: Event) => {
     return (
-      <ContactCard
+      <EventCard
         event={event}
-        clickHandler={deleteEventHandler}
-        key={10}
+        key={event.id!}
       />
     );
   });
   return (
-    <div className="main">
+    <div className="">
       <h2>
         Event List
         <Link to="/add">
-          <button className="ui button blue right">Add Event</button>
+          <button className="button">Add Event</button>
         </Link>
       </h2>
-      <div className="ui celled list"> {renderEventList} </div>
+      <div className=""> {renderEventList} </div>
     </div>
   );
 };
