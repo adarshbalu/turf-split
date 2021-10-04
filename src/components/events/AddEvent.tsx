@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import Event from "../../types/event";
+import "./AddEvent.css";
 
 // interface Event {
 //     name: string,
