@@ -26,10 +26,10 @@ const EventList = (props: Props) => {
       <h2>
         Event List
         <Link to="/add">
-          <button className="ui button blue right">Add Event</button>
+          <button className="button">Add Event</button>
         </Link>
       </h2>
-      <div className="ui celled list"> {renderEventList} </div>
+      <div className="cell"> {renderEventList} </div>
     </div>
   );
 };
