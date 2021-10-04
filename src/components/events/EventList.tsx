@@ -14,11 +14,7 @@ const EventList = (props: Props) => {
 
   const renderEventList = props.events.map((event: Event) => {
     return (
-      <ContactCard
-        event={event}
-        clickHandler={deleteEventHandler}
-        key={10}
-      />
+      <ContactCard event={event} clickHandler={deleteEventHandler} key={10} />
     );
   });
   return (
@@ -26,10 +22,10 @@ const EventList = (props: Props) => {
       <h2>
         Event List
         <Link to="/add">
-          <button className="ui button blue right">Add Event</button>
+          <button className="button">Add Event</button>
         </Link>
       </h2>
-      <div className="ui celled list"> {renderEventList} </div>
+      <div className="cell"> {renderEventList} </div>
     </div>
   );
 };

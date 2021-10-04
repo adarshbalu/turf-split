@@ -16,9 +16,20 @@ interface Props {
 const EventCard = (props: Props) => {
   const { name, date, id } = props.event;
   return (
-    <div className="item" style={{ padding: "10px" }}>
-      <div className="content">
-        <div className="header">{name}</div>
+    <div
+      className="item"
+      style={{
+        padding: "10px",
+        border: "1.25px",
+        borderStyle: "solid",
+        marginTop: "10px",
+        borderRadius: "7px",
+      }}
+    >
+      <div className="content" style={{ fontSize: ".95rem" }}>
+        <div className="header" style={{ fontSize: ".95rem", fontWeight: 600 }}>
+          {name}
+        </div>
         <div> on {date}</div>
       </div>
       <i
