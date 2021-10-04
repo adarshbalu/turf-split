@@ -18,6 +18,8 @@ export type EventContextType = {
     allUsers: User[],
     editEventState: EventState,
     splitState: EventState,
+    nextToPay: () => Promise<void>,
+    nextToPayList: User[],
 }
 
 export enum EventState {
@@ -44,6 +46,8 @@ const initialState: EventContextType = {
     fetchUsers: async () => { },
     splitState: EventState.NONE,
     editEventState: EventState.NONE,
+    nextToPay: async () => { },
+    nextToPayList: []
 
 }
 
@@ -58,13 +62,28 @@ const EventContextProvider = (props: Props) => {
     const [editEventState, setEditEventState] = useState<EventState>(EventState.NONE);
     const [splitState, setSplitState] = useState<EventState>(EventState.NONE);
     const [allUsers, setAllUsers] = useState<Array<User>>([]);
-
+    const [nextToPayList, setNextToPayList] = useState<Array<User>>([]);
     useEffect(() => {
         fetchAllEvents();
         fetchUsers();
         selectEvent(initialState.event);
     }, []);
 
+
+    const nextToPay = async () => {
+        await fetchUsers();
+        let sortedList: User[] = allUsers.sort(function (a, b) {
+            if (a.balance > b.balance) {
+                return 1;
+            }
+            if (a.balance < b.balance) {
+                return -1;
+            }
+            return 0;
+        });
+        setNextToPayList(sortedList);
+
+    }
 
     const deleteEvent = async (id: number) => {
         try {
@@ -170,7 +189,7 @@ const EventContextProvider = (props: Props) => {
     }
 
     return (
-        <EventContext.Provider value={{ editEventState, splitState, allUsers, fetchUsers, deleteEvent, createEventState: createEventState, allEvents, event, createEvent, fetchAllEvents, editEvent, split, deleteEventState }}>
+        <EventContext.Provider value={{ nextToPayList, nextToPay, editEventState, splitState, allUsers, fetchUsers, deleteEvent, createEventState: createEventState, allEvents, event, createEvent, fetchAllEvents, editEvent, split, deleteEventState }}>
             {props.children}
         </EventContext.Provider>
 
