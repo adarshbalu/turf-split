@@ -9,7 +9,7 @@ interface Props {
 }
 
 const EventCard = (props: Props) => {
-  const { name, date, id } = props.event;
+  const { name, dateTime, id } = props.event;
   return (
     <div
       className=""
@@ -25,7 +25,7 @@ const EventCard = (props: Props) => {
         <div className="">
           {name}
         </div>
-        <div> on {date.toDateString()}</div>
+        <div> on {dateTime.toDateString()}</div>
       </div>
       <i
         className=""

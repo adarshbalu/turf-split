@@ -1,3 +1,4 @@
+import { time } from "console";
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
@@ -14,7 +15,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [event, setEvent] = useState<Event>({} as Event);
   const [name, setName] = useState<string>("");
   const [dateTime, setDateTime] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(400);
   const [paidBy, setPaidBy] = useState<number>(0);
   const [players, setPlayers] = useState<Array<Player>>([]);
 
@@ -32,13 +33,13 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
 
   const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (name === undefined || dateTime === undefined || paidBy === undefined) {
+    if (name === "" || dateTime === "") {
       alert("All Fields are mandatory.");
       return;
     } else {
       let e: EventType = {
         name: name,
-        date: dateTime,
+        dateTime: dateTime,
         paidBy: paidBy,
         amount: amount,
         isPaid: false,
@@ -79,9 +80,9 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
           <div className="field">
             <label> Date and Time </label>
             <input
-              type="text"
+              type="datetime-local"
               name="date"
-              placeholder="Enter Date and Time"
+              //   placeholder="Enter Date and Time"
               value={`${dateTime}`}
               onChange={(e) => setDateTime(e.target.value)}
             />
