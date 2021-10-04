@@ -2,14 +2,14 @@ import { FunctionComponent, useContext, useEffect, useState } from "react";
 import "../profile/profile.css";
 import { AuthContext, AuthState } from "../../contexts/auth_context";
 import { EventContext } from "../../contexts/event_context";
-import event from "../../types/event";
 import { ReactComponent as UserIcon } from "../../assets/user.svg";
+import Event from "../../types/event";
 
 interface ProfileProps {}
 
 interface UserEventType {
   name: string;
-  date: string;
+  dateTime: string;
   totalPlayers: number;
   amount: number;
 }
@@ -19,7 +19,7 @@ const Profile: FunctionComponent<ProfileProps> = () => {
   const { allEvents, fetchAllEvents } = useContext(EventContext);
   const [userEvents, setuserEvents] = useState<Array<UserEventType>>([]);
 
-  const eventMap = (event: event) => {
+  const eventMap = (event: Event) => {
     for (let i = 0; i < event.players.length; i++) {
       // event.players[i].id === user.id ? return event.name : i
       if (event.players[i].id === user.id) {
@@ -40,7 +40,7 @@ const Profile: FunctionComponent<ProfileProps> = () => {
           ...prev,
           {
             name: event.name,
-            date: event.date.toDateString(),
+            dateTime: event.dateTime.toDateString(),
             totalPlayers: count,
             amount: event.amount,
           },
@@ -82,7 +82,7 @@ const Profile: FunctionComponent<ProfileProps> = () => {
               {userEvents.map((event) => (
                 <tr key={event.name}>
                   <td>{event.name}</td>
-                  <td>{event.date}</td>
+                  <td>{event.dateTime}</td>
                   <td>{event.totalPlayers}</td>
                   <td>{event.amount}</td>
                 </tr>
