@@ -1,23 +1,18 @@
 import React from "react";
 import Event from "../../types/event";
 
-// interface Event {
-//     name: string,
-//     email: string,
-//     id:number
 
-// }
 interface Props {
-
-  event: Event;
   key: number;
+  event: Event;
+
 }
 
 const EventCard = (props: Props) => {
   const { name, date, id } = props.event;
   return (
     <div
-      className="item"
+      className=""
       style={{
         padding: "10px",
         border: "1.25px",
@@ -26,14 +21,14 @@ const EventCard = (props: Props) => {
         borderRadius: "7px",
       }}
     >
-      <div className="content" style={{ fontSize: ".95rem" }}>
-        <div className="header" style={{ fontSize: ".95rem", fontWeight: 600 }}>
+      <div className="" >
+        <div className="">
           {name}
         </div>
-        <div> on {date}</div>
+        <div> on {date.toDateString()}</div>
       </div>
       <i
-        className="trash icon alternate outline red"
+        className=""
 
       />
     </div>

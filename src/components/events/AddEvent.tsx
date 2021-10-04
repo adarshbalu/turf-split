@@ -15,7 +15,7 @@ import "./AddEvent.css";
 
 interface Props extends RouteComponentProps<any> {
   // children:React.ReactNode;
-  addEventHandler: (event: Event) => Promise<void>;
+  // addEventHandler: (event: Event) => Promise<void>;
   //   contact:Array <Event>
 }
 
@@ -32,7 +32,7 @@ class AddEvent extends React.Component<Props> {
       console.log(this.state.paidBy);
       return;
     }
-    this.props.addEventHandler(this.state);
+
     console.log(this.state);
     // this.setState({name:"",email:"",date:"",amount:"",paidBy:"",});
     this.props.history.push("/");
