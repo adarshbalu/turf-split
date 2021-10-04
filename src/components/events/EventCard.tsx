@@ -1,5 +1,5 @@
 import React from "react";
-import Event from "../types/Event";
+import Event from "../../types/event";
 
 // interface Event {
 //     name: string,
