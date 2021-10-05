@@ -34,6 +34,7 @@ export default class Event {
 export interface Player {
   id: number;
   count: number;
+  email: string;
 }
 
 export interface EventType {

@@ -141,6 +141,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
                       {
                         id: selectedPlayer.id,
                         count: 1,
+                        email: selectedPlayer.email,
                       } as Player,
                     ]);
                     setPlayerOptions((prev) =>
