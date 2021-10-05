@@ -2,30 +2,42 @@ import React from "react";
 import { FunctionComponent, useContext, useEffect } from "react";
 import { EventContext } from "../../contexts/event_context";
 
-interface NextToPayCardProps {
-
-}
+interface NextToPayCardProps {}
 
 const NextToPayCard: FunctionComponent<NextToPayCardProps> = () => {
-    const { nextToPay, nextToPayList } = useContext(EventContext);
-    useEffect(() => {
-        nextToPay();
-    });
-    return (<>
-
-        <h4>Next to pay</h4>
-        {
-            React.createElement("ul", {
-                style: {
-                    listStyleType: 'none'
-                }
-            }, nextToPayList.map((e) => {
-                return React.createElement("li", null, e.email + " : " + e.balance);
-
-            }))
-        }
-
-    </>);
-}
+  const { nextToPay, nextToPayList } = useContext(EventContext);
+  useEffect(() => {
+    nextToPay();
+  }, []);
+  return (
+    <>
+      <h4 className="next-table-head">Next to pay</h4>
+      <div className="table">
+        <table className="next-table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {nextToPayList.map((e, index) => {
+              if (index < 5) {
+                return (
+                  <tr>
+                    <td>{e.email}</td>
+                    <td>{e.balance}</td>
+                  </tr>
+                );
+              } else {
+                return <></>;
+              }
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
 
 export default NextToPayCard;
