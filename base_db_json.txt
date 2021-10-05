@@ -15,11 +15,13 @@
       "players": [
         {
           "id": 1,
-          "count": 2
+          "count": 2,
+          "email":"user@MAIL.com"
         },
         {
           "id": 2,
-          "count": 1
+          "count": 1,
+           "email":"user@MAIL.com"
         }
       ],
       "isPaid": true
@@ -33,15 +35,18 @@
       "players": [
         {
           "id": 3,
-          "count": 2
+          "count": 2,
+           "email":"user@MAIL.com"
         },
         {
           "id": 4,
-          "count": 1
+          "count": 1,
+           "email":"user@MAIL.com"
         },
          {
           "id": 1,
-          "count": 1
+          "count": 1,
+           "email":"user@MAIL.com"
         }
       ],
       "isPaid": true
@@ -55,11 +60,13 @@
       "players": [
         {
           "id": 5,
-          "count": 2
+          "count": 2,
+           "email":"user@MAIL.com"
         },
         {
           "id": 2,
-          "count": 1
+          "count": 1,
+           "email":"user@MAIL.com"
         }
       ],
       "isPaid": true

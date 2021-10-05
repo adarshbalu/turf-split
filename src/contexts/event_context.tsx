@@ -20,7 +20,16 @@ export type EventContextType = {
   splitState: EventState;
   nextToPay: () => Promise<void>;
   nextToPayList: User[];
+  nextToPayState: NextToPayState;
 };
+
+export enum NextToPayState {
+  LOADING,
+  NONE,
+  ERROR,
+  EMPTY,
+  SUCCESS,
+}
 
 export enum EventState {
   LOADING,
@@ -35,6 +44,7 @@ type Props = {
 
 const initialState: EventContextType = {
   event: {} as Event,
+  nextToPayState: NextToPayState.NONE,
   allEvents: [],
   allUsers: [],
   createEvent: async (event: EventType) => {},
@@ -70,13 +80,19 @@ const EventContextProvider = (props: Props) => {
   const [splitState, setSplitState] = useState<EventState>(EventState.NONE);
   const [allUsers, setAllUsers] = useState<Array<User>>([]);
   const [nextToPayList, setNextToPayList] = useState<Array<User>>([]);
+  const [nextToPayState, setNextToPayState] = useState<NextToPayState>(
+    initialState.nextToPayState
+  );
+
   useEffect(() => {
     fetchAllEvents();
     fetchUsers();
     selectEvent(initialState.event);
+    nextToPay();
   }, []);
 
   const nextToPay = async () => {
+    setNextToPayState(NextToPayState.LOADING);
     await fetchUsers();
     let sortedList: User[] = allUsers.sort(function (a, b) {
       if (a.balance > b.balance) {
@@ -88,6 +104,11 @@ const EventContextProvider = (props: Props) => {
       return 0;
     });
     setNextToPayList(sortedList);
+    if (sortedList.length === 0) {
+      setNextToPayState(NextToPayState.EMPTY);
+    } else {
+      setNextToPayState(NextToPayState.SUCCESS);
+    }
   };
 
   const deleteEvent = async (id: number) => {
@@ -112,7 +133,7 @@ const EventContextProvider = (props: Props) => {
     try {
       const data: User[] = await APIService.get(URL.usersPath);
       setAllUsers(data);
-      console.log("Ftech user", data);
+      console.log("Fetch user", data);
     } catch (e) {
       console.log(`Error : ${e}`);
     }
@@ -206,6 +227,7 @@ const EventContextProvider = (props: Props) => {
         editEvent,
         split,
         deleteEventState,
+        nextToPayState,
       }}
     >
       {props.children}
