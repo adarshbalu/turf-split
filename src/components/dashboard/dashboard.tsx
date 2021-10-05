@@ -25,13 +25,17 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
 
   return (
     <>
-      <div>
-        <h3> Dashboard</h3>
-        <div className="user-balance">
-          <h1>{`Balance: ₹ ${user.balance}`}</h1>
+      <div className="user-info">
+        <div className="user-info-box balance">
+          <h1>{`Balance: ₹ ${user?.balance ?? 0}`}</h1>
         </div>
-        <NextToPayCard />
+        <div className="user-info-box eventnum">
+          <h1>{`Total Events: ${
+            user.events === undefined ? 0 : user.events.length
+          }`}</h1>
+        </div>
       </div>
+      <NextToPayCard />
     </>
   );
 };
