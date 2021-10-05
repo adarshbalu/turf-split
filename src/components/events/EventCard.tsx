@@ -32,9 +32,12 @@ const EventCard = (props: Props) => {
         to={{ pathname: `/edit`, state: { event: props.event } }}
         style={{ textDecoration: "none" }}
       >
-        <div className="content" style={{ marginTop: "15px" }}>
+        <div className="content" style={{ marginTop: "15px", color: "black" }}>
           <div className="header">{name}</div>
-          <div> on {dateTime.toDateString()}</div>
+          <div style={{ fontWeight: 600, color: "black" }}>
+            {" "}
+            on {dateTime.toDateString()}
+          </div>
         </div>
         <i className="" />
       </Link>
