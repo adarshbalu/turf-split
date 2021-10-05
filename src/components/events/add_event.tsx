@@ -106,10 +106,10 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               "select",
               {
                 placeholder: "Amount Paid By",
-                value: { paidBy },
                 name: "paidBy",
                 onChange: (e: ChangeEvent<HTMLSelectElement>) => {
                   console.log(e.target.value);
+                  setPaidBy(parseInt(e.target.value));
                 },
               },
               allUsers.map((user) => {
