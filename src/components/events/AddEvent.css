@@ -21,6 +21,10 @@
 .event-body {
   padding: 10px 20px 0px;
 }
+.event-list-body {
+  max-height: 60vh;
+  overflow: auto;
+}
 .field {
   margin-top: 10px;
   display: block;

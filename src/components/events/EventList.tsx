@@ -17,7 +17,7 @@ const EventList = () => {
           <button className="event-button">Add Event</button>
         </Link>
       </div>
-      <div className=""> {renderEventList} </div>
+      <div className="event-list-body"> {renderEventList} </div>
     </div>
   );
 };
