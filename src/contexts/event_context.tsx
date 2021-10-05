@@ -93,7 +93,9 @@ const EventContextProvider = (props: Props) => {
 
   const nextToPay = async () => {
     setNextToPayState(NextToPayState.LOADING);
-    await fetchUsers();
+    if (allUsers.length === 0) {
+      await fetchUsers();
+    }
     let sortedList: User[] = allUsers.sort(function (a, b) {
       if (a.balance > b.balance) {
         return 1;
