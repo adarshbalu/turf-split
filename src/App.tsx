@@ -32,8 +32,10 @@ function App() {
               </Route>
               <Route
                 path="/edit"
-                component={() => <EditEvent event={{} as Event} />}
-              ></Route>
+                // component={() => <EditEvent event={{} as Event} />}
+              >
+                <EditEvent />
+              </Route>
             </Switch>
           </Router>
         </EventContextProvider>

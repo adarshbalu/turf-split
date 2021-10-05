@@ -187,13 +187,14 @@ const EventContextProvider = (props: Props) => {
 
   const split = async (event: EventType) => {
     try {
-      await fetchUsers();
       setSplitState(EventState.LOADING);
       let totalPlayers: number = 0;
       event.players.forEach((p) => {
         totalPlayers += p.count;
       });
+      console.log("Total players", totalPlayers);
       const amountPerPlayer: number = event.amount / totalPlayers;
+      console.log("Amount per player", amountPerPlayer);
       event.players.forEach(async (p) => {
         const currentUser: User = allUsers.filter((u) => u.id === p.id)[0];
         await APIService.put(URL.usersPath + p.id, {

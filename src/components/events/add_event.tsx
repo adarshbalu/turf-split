@@ -213,6 +213,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               className="split-button"
               onClick={() => console.log("Clicked")}
               style={{ backgroundColor: "#37474F" }}
+              hidden
             >
               Split
             </button>
