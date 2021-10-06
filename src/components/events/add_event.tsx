@@ -22,7 +22,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [event, setEvent] = useState<Event>({} as Event);
   const [name, setName] = useState<string>("");
   const [dateTime, setDateTime] = useState<string>("");
-  const [amount, setAmount] = useState<number>(400);
+  const [amount, setAmount] = useState<number>(0);
   const [paidBy, setPaidBy] = useState<number>(0);
   const [players, setPlayers] = useState<Array<Player>>([]);
   const [playerOptions, setPlayerOptions] = useState<Array<User>>([]);
@@ -46,7 +46,13 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
 
   const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (name === "" || dateTime === "") {
+    if (
+      name === "" ||
+      dateTime === "" ||
+      paidBy === 0 ||
+      amount === 0 ||
+      players.length === 0
+    ) {
       alert("All Fields are mandatory.");
       return;
     } else {
