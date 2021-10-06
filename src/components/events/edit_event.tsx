@@ -1,3 +1,4 @@
+import { LinearProgress } from "@mui/material";
 import React, {
   ChangeEvent,
   FunctionComponent,
@@ -222,7 +223,8 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
                 Update
               </button>
             ) : (
-                <p hidden={splitState === EventState.LOADING}>Updating...</p>
+                <LinearProgress hidden={splitState === EventState.LOADING} />
+
             )}
 
             {
@@ -236,7 +238,9 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
                 hidden={isPaid}
               >
                 Split
-              </button>) : <p hidden={editEventState === EventState.LOADING}> Splitting</p>
+              </button>) :
+                <LinearProgress hidden={editEventState === EventState.LOADING} />
+
             }
           </div>
         </form>
