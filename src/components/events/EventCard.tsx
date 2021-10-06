@@ -41,17 +41,33 @@ const EventCard = (props: Props) => {
         style={{ textDecoration: "none", flex: "1" }}
       >
         <div className="content">
-          <div className="header" style={{ color: "black" }}>
+          <div
+            className="header"
+            style={{ color: "black", display: "flex", alignItems: "center" }}
+          >
             <FcInfo />
-            {name}
+            <div style={{ paddingLeft: "15px" }}>{name}</div>
           </div>
-          <div style={{ color: "black" }}>
+          <div
+            style={{ color: "black", display: "flex", alignItems: "center" }}
+          >
             <FcCalendar />
-            {dateTime.toLocaleDateString()}
+            <div style={{ paddingLeft: "15px" }}>
+              {dateTime.toLocaleDateString()}
+            </div>
           </div>
-          <div style={{ color: "black", fontWeight: 500 }}>
+          <div
+            style={{
+              color: "black",
+              fontWeight: 500,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <FcAlarmClock />
-            {dateTime.toLocaleTimeString()}
+            <div style={{ paddingLeft: "15px" }}>
+              {dateTime.toLocaleTimeString()}
+            </div>
           </div>
         </div>
       </Link>
@@ -61,9 +77,8 @@ const EventCard = (props: Props) => {
           fontSize: "25px",
           cursor: "pointer",
           margin: "0 20px",
-          color: "#2C2891"
+          color: "#2C2891",
         }}
-
         hidden={props.event.paidBy === user.id}
       >
         <HiOutlineCurrencyRupee />
