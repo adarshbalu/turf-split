@@ -146,7 +146,6 @@ const EventContextProvider = (props: Props) => {
       setCreateEventState(EventState.LOADING);
       // Add new Event to db
       const newEvent: EventType = await APIService.post(URL.eventsPath, event);
-      console.log(newEvent);
       // Add event id to all users participating   
       event.players.forEach(async (player) => {
         const currentUser: User = allUsers.filter((u) => u.id === player.id)[0];
@@ -154,6 +153,7 @@ const EventContextProvider = (props: Props) => {
       });
 
       setAllEvents([...allEvents, new Event(newEvent)]);
+      await fetchAllEvents();
       setCreateEventState(EventState.SUCCESS);
     } catch (e) {
       console.log(`Error : ${e}`);
@@ -186,6 +186,7 @@ const EventContextProvider = (props: Props) => {
       await APIService.put(URL.eventsPath + event.id, event);
       await fetchAllEvents();
       setEditEventState(EventState.SUCCESS);
+      await fetchAllEvents();
     } catch (e) {
       console.log(`Error : ${e}`);
       setEditEventState(EventState.ERROR);
@@ -226,6 +227,7 @@ const EventContextProvider = (props: Props) => {
           });
         }
       });
+      await fetchAllEvents();
       setSplitState(EventState.SUCCESS);
     } catch (e) {
       console.log(`Error : ${e}`);
