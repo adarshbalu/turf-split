@@ -67,7 +67,7 @@ const Profile: FunctionComponent<ProfileProps> = () => {
             </div>
           </div>
           <div className="user-balance">
-            <h1>{`Balance: ₹ ${user.balance}`}</h1>
+            <h1>{`Balance: ₹ ${Math.round(user.balance)}`}</h1>
           </div>
         </section>
         <div className="table">

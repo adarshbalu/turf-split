@@ -25,7 +25,7 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
     <>
       <div className="user-info">
         <div className="user-info-box balance">
-          <h1>{`Balance: ₹ ${user?.balance ?? 0}`}</h1>
+          <h1>{`Balance: ₹ ${Math.round(user?.balance) ?? 0}`}</h1>
         </div>
         <div className="user-info-box eventnum">
           <h1>{`Total Events: ${

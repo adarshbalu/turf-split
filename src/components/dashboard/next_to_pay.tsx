@@ -26,7 +26,7 @@ const NextToPayCard: FunctionComponent<NextToPayCardProps> = () => {
                 return (
                   <tr>
                     <td>{e.email}</td>
-                    <td>{e.balance}</td>
+                    <td>{Math.round(e.balance)}</td>
                   </tr>
                 );
               } else {

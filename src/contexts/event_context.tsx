@@ -199,7 +199,7 @@ const EventContextProvider = (props: Props) => {
         const currentUser: User = allUsers.filter((u) => u.id === p.id)[0];
         await APIService.put(URL.usersPath + p.id, {
           ...currentUser,
-          balance: currentUser.balance - amountPerPlayer * p.count,
+          balance: Math.round(currentUser.balance - amountPerPlayer * p.count),
         });
       });
       setSplitState(EventState.SUCCESS);
