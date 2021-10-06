@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Event from "../../types/event";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-import { width } from "@mui/system";
+import { EventContext } from "../../contexts/event_context";
 
 interface Props {
   key: number;
@@ -11,7 +11,10 @@ interface Props {
 
 const EventCard = (props: Props) => {
   const { name, dateTime, id } = props.event;
-  const clickHandler: any = (): void => {};
+  const { deleteEvent } = useContext(EventContext);
+  const clickHandler: any = async (): Promise<void> => {
+    await deleteEvent(id!);
+  };
   return (
     <div
       className="cell-row"
@@ -25,10 +28,16 @@ const EventCard = (props: Props) => {
         width: "100%",
       }}
     >
-      <Link to={{ pathname: `/edit`, state: { event: props.event } }}>
-        <div className="content" style={{ marginTop: "15px" }}>
+      <Link
+        to={{ pathname: `/edit`, state: { event: props.event } }}
+        style={{ textDecoration: "none" }}
+      >
+        <div className="content" style={{ marginTop: "15px", color: "black" }}>
           <div className="header">{name}</div>
-          <div> on {dateTime.toDateString()}</div>
+          <div style={{ fontWeight: 600, color: "black" }}>
+            {" "}
+            on {dateTime.toDateString()}
+          </div>
         </div>
         <i className="" />
       </Link>
@@ -38,6 +47,7 @@ const EventCard = (props: Props) => {
           fontSize: "25px",
           cursor: "pointer",
           marginBottom: "25px",
+          textDecoration: "none",
         }}
         onClick={clickHandler}
       >

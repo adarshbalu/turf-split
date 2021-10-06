@@ -31,6 +31,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
     amount: amount1,
     paidBy: paidBy1,
     players: players1,
+    isPaid,
     id: id1,
   } = history.location.state.event;
 
@@ -78,7 +79,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
         dateTime: dateTime1.toDateString(),
         paidBy: paidBy1,
         amount: amount1,
-        isPaid: false,
+        isPaid: true,
         players: players1,
         id: id1,
       };
@@ -99,6 +100,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
         paidBy1,
         amount1,
         players1,
+
         id1
       );
       let ev: EventType = {
@@ -106,7 +108,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
         dateTime: dateTime1.toDateString(),
         paidBy: paidBy1,
         amount: amount1,
-        isPaid: false,
+        isPaid: true,
         players: players1,
         id: id1,
       };
@@ -199,6 +201,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
                   e.preventDefault();
                   await update();
                 }}
+                hidden={isPaid}
               >
                 Update
               </button>
@@ -212,6 +215,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
                 await handleSplit();
               }}
               style={{ backgroundColor: "#37474F" }}
+              hidden={isPaid}
             >
               Split
             </button>
