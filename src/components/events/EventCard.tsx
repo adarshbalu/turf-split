@@ -10,7 +10,7 @@ interface Props {
 }
 
 const EventCard = (props: Props) => {
-  const { name, dateTime, id } = props.event;
+  const { name, dateTime, id, isPaid } = props.event;
   const { deleteEvent } = useContext(EventContext);
   const clickHandler: any = async (): Promise<void> => {
     await deleteEvent(id!);
@@ -49,6 +49,7 @@ const EventCard = (props: Props) => {
           // textDecoration: "none",
         }}
         onClick={clickHandler}
+        hidden={isPaid}
       >
         <MdDelete />
       </i>
