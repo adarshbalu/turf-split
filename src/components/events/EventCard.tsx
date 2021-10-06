@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { AiFillThunderbolt } from "react-icons/ai";
 import { EventContext } from "../../contexts/event_context";
+import { HiOutlineCurrencyRupee } from "react-icons/hi";
+import { AuthContext } from "../../contexts/auth_context";
 
 interface Props {
   key: number;
@@ -12,6 +14,7 @@ interface Props {
 
 const EventCard = (props: Props) => {
   const { name, dateTime, id, isPaid } = props.event;
+  const { user } = useContext(AuthContext);
   const { deleteEvent } = useContext(EventContext);
   const clickHandler: any = async (): Promise<void> => {
     await deleteEvent(id!);
@@ -43,23 +46,36 @@ const EventCard = (props: Props) => {
           </div>
         </div>
       </Link>
+
       <i
         style={{
           fontSize: "25px",
           cursor: "pointer",
-          // textDecoration: "none",
+          margin: "0 20px",
+          color: "#2C2891"
+        }}
+
+        hidden={props.event.paidBy === user.id}
+      >
+        <HiOutlineCurrencyRupee />
+      </i>
+
+      {/* <i
+        style={{
+          fontSize: "25px",
+          cursor: "pointer",
         }}
         onClick={clickHandler}
         hidden={true}
       >
         <MdDelete />
-      </i>
+      </i> */}
+
       <i
         style={{
           fontSize: "25px",
           cursor: "pointer",
           color: "#2AEF45",
-          // textDecoration: "none",
         }}
         hidden={!isPaid}
       >

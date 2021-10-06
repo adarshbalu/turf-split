@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import APIService from "../services/api_service";
-import Event, { EventType, Player } from "../types/event";
+import Event, { EventType, } from "../types/event";
 import User from "../types/user";
 import URL from "../utils/urls";
 
@@ -135,7 +135,6 @@ const EventContextProvider = (props: Props) => {
     try {
       const data: User[] = await APIService.get(URL.usersPath);
       setAllUsers(data);
-      console.log("Fetch user", data);
     } catch (e) {
       console.log(`Error : ${e}`);
     }
@@ -176,7 +175,6 @@ const EventContextProvider = (props: Props) => {
       const data = (await APIService.get(URL.eventsPath)) as [];
       let allEventsList: Event[] = data.map((e) => new Event(e as EventType));
       setAllEvents(allEventsList);
-      console.log("Fetch events called");
     } catch (e) {
       console.log(`Error : ${e}`);
     }

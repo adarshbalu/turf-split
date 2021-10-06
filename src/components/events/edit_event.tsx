@@ -1,7 +1,6 @@
 import React, {
   ChangeEvent,
   FunctionComponent,
-  ReactElement,
   useContext,
   useEffect,
   useState,
@@ -15,6 +14,7 @@ import {
 import Event, { EventType, Player } from "../../types/event";
 import User from "../../types/user";
 import "./AddEvent.css";
+import "./events.css";
 
 interface EditEventProps {}
 
@@ -178,19 +178,23 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
               })
             )}
           </div>
+
           <h3>Added players</h3>
           {React.createElement(
-            "ul",
+            "ol",
             null,
             players.map((player: Player) => {
               let value: string = "" + player.count;
               return React.createElement(
                 "li",
-                { key: player.id },
-                React.createElement("div", null, [React.createElement("p", null, player.email), React.
+                { key: player.id, },
+                React.createElement("div", {
+                  className: "count-select"
+                }, [React.createElement("span", null, player.email), React.
                   createElement("input", {
                     value: value,
                     type: "text",
+                    disabled: true,
                     onChange: (e) => {
                       let index: number = 0;
                       index = players.findIndex(p => player.id === p.id);
