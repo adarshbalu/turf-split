@@ -6,6 +6,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { EventContext } from "../../contexts/event_context";
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
 import { AuthContext } from "../../contexts/auth_context";
+import { FcCalendar, FcAlarmClock, FcInfo } from "react-icons/fc";
 
 interface Props {
   key: number;
@@ -39,10 +40,18 @@ const EventCard = (props: Props) => {
         to={{ pathname: `/edit`, state: { event: props.event } }}
         style={{ textDecoration: "none", flex: "1" }}
       >
-        <div className="content" style={{ color: "black" }}>
-          <div className="header">{name}</div>
-          <div style={{ fontWeight: 600, color: "black" }}>
-            on {dateTime.toDateString()}
+        <div className="content">
+          <div className="header" style={{ color: "black" }}>
+            <FcInfo />
+            {name}
+          </div>
+          <div style={{ color: "black" }}>
+            <FcCalendar />
+            {dateTime.toLocaleDateString()}
+          </div>
+          <div style={{ color: "black", fontWeight: 500 }}>
+            <FcAlarmClock />
+            {dateTime.toLocaleTimeString()}
           </div>
         </div>
       </Link>
