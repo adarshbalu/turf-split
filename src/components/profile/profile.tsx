@@ -26,30 +26,31 @@ const Profile: FunctionComponent<ProfileProps> = () => {
       for (let i = 0; i < event.players.length; i++) {
         if (event.players[i].id === user.id) {
           return event.name;
-        } else return 0;
+        }
+        return 0;
       }
     }
   };
 
   useEffect(() => {
+    let List: any[] = [];
     let count = 0;
     allEvents.map((event) => {
       if (eventMap(event) !== 0) {
+        count = 0;
         for (let i = 0; i < event.players.length; i++) {
           count += event.players[i].count;
         }
-        setuserEvents((prev) => [
-          ...prev,
-          {
-            name: event.name,
-            dateTime: event.dateTime.toDateString(),
-            totalPlayers: count,
-            amount: event.amount,
-          },
-        ]);
+        List.push({
+          name: event.name,
+          dateTime: event.dateTime.toDateString(),
+          totalPlayers: count,
+          amount: event.amount,
+        });
+        setuserEvents(List);
       }
     });
-  }, [allEvents]);
+  }, []);
 
   return (
     <>
