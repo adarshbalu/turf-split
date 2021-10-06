@@ -16,14 +16,14 @@ import Event, { EventType, Player } from "../../types/event";
 import User from "../../types/user";
 import "./AddEvent.css";
 
-interface CreateEventProps { }
+interface CreateEventProps {}
 
 const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [event, setEvent] = useState<Event>({} as Event);
   const [name, setName] = useState<string>("");
   const [dateTime, setDateTime] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
-  const [paidBy, setPaidBy] = useState<number>(0);
+  const [paidBy, setPaidBy] = useState<number | null>(0);
   const [players, setPlayers] = useState<Array<Player>>([]);
   const [playerOptions, setPlayerOptions] = useState<Array<User>>([]);
   const [addedPlayers, setAddedPlayers] = useState<Array<User>>([]);
@@ -46,20 +46,27 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
 
   const add = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      name === "" ||
-      dateTime === "" ||
-      paidBy === 0 ||
-      amount === 0 ||
-      players.length === 0
-    ) {
-      alert("All Fields are mandatory.");
+
+    if (name === "") {
+      alert("Name is required.");
+      return;
+    } else if (dateTime === "") {
+      alert("Date is required.");
+      return;
+    } else if (amount <= 0) {
+      alert("Amount is required.");
+      return;
+    } else if (paidBy === 0) {
+      alert("Paid by is required");
+      return;
+    } else if (players.length === 0) {
+      alert("Please Add atleast one Player");
       return;
     } else {
       let e: EventType = {
         name: name,
         dateTime: dateTime,
-        paidBy: paidBy,
+        paidBy: paidBy!,
         amount: amount,
         isPaid: false,
         players: players,
@@ -82,6 +89,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               name="name"
               placeholder="Name of Event"
               value={name}
+              required
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -92,6 +100,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               name="date"
               //   placeholder="Enter Date and Time"
               value={`${dateTime}`}
+              required
               onChange={(e) => setDateTime(e.target.value)}
             />
           </div>
@@ -102,6 +111,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
               name="amount"
               placeholder="Amount to be paid"
               value={amount}
+              required
               onChange={(e) => setAmount(parseInt(e.target.value))}
             />
           </div>
@@ -111,13 +121,20 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
             {React.createElement(
               "select",
               {
+                required: true,
                 placeholder: "Amount Paid By",
                 name: "paidBy",
+
+                // value:{allUsers[0].email},
                 onChange: (e: ChangeEvent<HTMLSelectElement>) => {
-                  console.log(e.target.value);
                   setPaidBy(parseInt(e.target.value));
                 },
               },
+              React.createElement(
+                "option",
+                { value: 0 },
+                "------No user selected------"
+              ),
               allUsers.map((user) => {
                 return React.createElement(
                   "option",
