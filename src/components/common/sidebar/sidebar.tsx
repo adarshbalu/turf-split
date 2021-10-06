@@ -33,7 +33,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
         {/* Sidebar top section - Logo , Dashboard , Events , Profile */}
         <div className="sidebar-top">
           <div className="sidebar-logo">
-            <Football width={50} height={50} />
+            <Football className="App-logo" width={50} height={50} />
             <span>TurfSplit</span>
           </div>
 
