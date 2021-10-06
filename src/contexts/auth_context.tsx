@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import APIService from "../services/api_service";
 import User from "../types/user";
 import URL from "../utils/urls";
@@ -79,6 +79,7 @@ const AuthContextProvider = (props: Props) => {
       setAuthState(AuthState.AUTHENTICATED);
       storeUserData(data);
       checkUsernameAdded();
+      LocalStorage.setData(LocalStorage.USER_DATA, JSON.stringify(data));
       // return data;
     } catch (e) {
       console.log(`Error : ${e}`);
