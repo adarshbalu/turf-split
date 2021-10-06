@@ -16,7 +16,7 @@ import Event, { EventType, Player } from "../../types/event";
 import User from "../../types/user";
 import "./AddEvent.css";
 
-interface CreateEventProps {}
+interface CreateEventProps { }
 
 const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [event, setEvent] = useState<Event>({} as Event);

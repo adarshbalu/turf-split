@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import APIService from "../services/api_service";
-import Event, { EventType } from "../types/event";
+import Event, { EventType, Player } from "../types/event";
 import User from "../types/user";
 import URL from "../utils/urls";
 
@@ -47,17 +47,17 @@ const initialState: EventContextType = {
   nextToPayState: NextToPayState.NONE,
   allEvents: [],
   allUsers: [],
-  createEvent: async (event: EventType) => {},
-  fetchAllEvents: async () => {},
-  editEvent: async () => {},
-  split: async (event: EventType) => {},
+  createEvent: async (event: EventType) => { },
+  fetchAllEvents: async () => { },
+  editEvent: async () => { },
+  split: async (event: EventType) => { },
   createEventState: EventState.NONE,
-  deleteEvent: async (id: number) => {},
+  deleteEvent: async (id: number) => { },
   deleteEventState: EventState.NONE,
-  fetchUsers: async () => {},
+  fetchUsers: async () => { },
   splitState: EventState.NONE,
   editEventState: EventState.NONE,
-  nextToPay: async () => {},
+  nextToPay: async () => { },
   nextToPayList: [],
 };
 
@@ -144,8 +144,16 @@ const EventContextProvider = (props: Props) => {
   const createEvent = async (event: EventType) => {
     try {
       setCreateEventState(EventState.LOADING);
-      await APIService.post(URL.eventsPath, event);
-      setAllEvents([...allEvents, new Event(event)]);
+      // Add new Event to db
+      const newEvent: EventType = await APIService.post(URL.eventsPath, event);
+      console.log(newEvent);
+      // Add event id to all users participating   
+      event.players.forEach(async (player) => {
+        const currentUser: User = allUsers.filter((u) => u.id === player.id)[0];
+        await APIService.put(URL.usersPath + currentUser.id, { ...currentUser, events: [...currentUser.events, newEvent.id] } as User);
+      });
+
+      setAllEvents([...allEvents, new Event(newEvent)]);
       setCreateEventState(EventState.SUCCESS);
     } catch (e) {
       console.log(`Error : ${e}`);
@@ -159,6 +167,8 @@ const EventContextProvider = (props: Props) => {
   const selectEvent = (event: Event) => {
     setEvent(event);
   };
+
+
 
   const fetchAllEvents = async () => {
     try {
@@ -187,19 +197,34 @@ const EventContextProvider = (props: Props) => {
 
   const split = async (event: EventType) => {
     try {
+      await fetchUsers();
       setSplitState(EventState.LOADING);
       let totalPlayers: number = 0;
       event.players.forEach((p) => {
         totalPlayers += p.count;
       });
-      const amountPerPlayer: number = event.amount / totalPlayers;
+
+      const amountPerPlayer: number = Math.round(event.amount / totalPlayers);
+      // Add isPaid to event
       await APIService.put(URL.eventsPath + event.id, event);
+
+      // Update balance of participating users
       event.players.forEach(async (p) => {
         const currentUser: User = allUsers.filter((u) => u.id === p.id)[0];
-        await APIService.put(URL.usersPath + p.id, {
-          ...currentUser,
-          balance: Math.round(currentUser.balance - amountPerPlayer * p.count),
-        });
+        // Updating balance of all users except paid user
+        if (event.paidBy !== currentUser.id) {
+          await APIService.put(URL.usersPath + p.id, {
+            ...currentUser,
+            balance: currentUser.balance - amountPerPlayer * p.count,
+          });
+        }
+        // Updating balacnce of paid user
+        else {
+          await APIService.put(URL.usersPath + p.id, {
+            ...currentUser,
+            balance: currentUser.balance + event.amount - amountPerPlayer * p.count,
+          });
+        }
       });
       setSplitState(EventState.SUCCESS);
     } catch (e) {
