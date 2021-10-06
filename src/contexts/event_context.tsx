@@ -47,17 +47,17 @@ const initialState: EventContextType = {
   nextToPayState: NextToPayState.NONE,
   allEvents: [],
   allUsers: [],
-  createEvent: async (event: EventType) => { },
-  fetchAllEvents: async () => { },
-  editEvent: async () => { },
-  split: async (event: EventType) => { },
+  createEvent: async (event: EventType) => {},
+  fetchAllEvents: async () => {},
+  editEvent: async () => {},
+  split: async (event: EventType) => {},
   createEventState: EventState.NONE,
-  deleteEvent: async (id: number) => { },
+  deleteEvent: async (id: number) => {},
   deleteEventState: EventState.NONE,
-  fetchUsers: async () => { },
+  fetchUsers: async () => {},
   splitState: EventState.NONE,
   editEventState: EventState.NONE,
-  nextToPay: async () => { },
+  nextToPay: async () => {},
   nextToPayList: [],
 };
 
@@ -147,10 +147,13 @@ const EventContextProvider = (props: Props) => {
       // Add new Event to db
       const newEvent: EventType = await APIService.post(URL.eventsPath, event);
       console.log(newEvent);
-      // Add event id to all users participating   
+      // Add event id to all users participating
       event.players.forEach(async (player) => {
         const currentUser: User = allUsers.filter((u) => u.id === player.id)[0];
-        await APIService.put(URL.usersPath + currentUser.id, { ...currentUser, events: [...currentUser.events, newEvent.id] } as User);
+        await APIService.put(URL.usersPath + currentUser.id, {
+          ...currentUser,
+          events: [...currentUser.events, newEvent.id],
+        } as User);
       });
 
       setAllEvents([...allEvents, new Event(newEvent)]);
@@ -168,13 +171,12 @@ const EventContextProvider = (props: Props) => {
     setEvent(event);
   };
 
-
-
   const fetchAllEvents = async () => {
     try {
       const data = (await APIService.get(URL.eventsPath)) as [];
       let allEventsList: Event[] = data.map((e) => new Event(e as EventType));
       setAllEvents(allEventsList);
+      console.log("Fetch events called");
     } catch (e) {
       console.log(`Error : ${e}`);
     }
@@ -222,7 +224,8 @@ const EventContextProvider = (props: Props) => {
         else {
           await APIService.put(URL.usersPath + p.id, {
             ...currentUser,
-            balance: currentUser.balance + event.amount - amountPerPlayer * p.count,
+            balance:
+              currentUser.balance + event.amount - amountPerPlayer * p.count,
           });
         }
       });
