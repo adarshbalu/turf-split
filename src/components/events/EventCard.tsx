@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Event from "../../types/event";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import { AiFillThunderbolt } from "react-icons/ai";
 import { EventContext } from "../../contexts/event_context";
 
 interface Props {
@@ -49,9 +50,20 @@ const EventCard = (props: Props) => {
           // textDecoration: "none",
         }}
         onClick={clickHandler}
-        hidden={isPaid}
+        hidden={true}
       >
         <MdDelete />
+      </i>
+      <i
+        style={{
+          fontSize: "25px",
+          cursor: "pointer",
+          color: "#2AEF45",
+          // textDecoration: "none",
+        }}
+        hidden={!isPaid}
+      >
+        <AiFillThunderbolt />
       </i>
     </div>
   );
