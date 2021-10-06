@@ -40,33 +40,54 @@ const EventCard = (props: Props) => {
         to={{ pathname: `/edit`, state: { event: props.event } }}
         style={{ textDecoration: "none", flex: "1" }}
       >
-        <div className="content">
+        <div className="content" style={{ display: "flex" }}>
           <div
-            className="header"
-            style={{ color: "black", display: "flex", alignItems: "center" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "0px 30px",
+            }}
           >
-            <FcInfo />
-            <div style={{ paddingLeft: "15px" }}>{name}</div>
-          </div>
-          <div
-            style={{ color: "black", display: "flex", alignItems: "center" }}
-          >
-            <FcCalendar />
-            <div style={{ paddingLeft: "15px" }}>
-              {dateTime.toLocaleDateString()}
+            <div
+              style={{
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                padding: "10px 0px",
+              }}
+            >
+              <FcCalendar />
+              <div style={{ paddingLeft: "15px" }}>
+                {dateTime.toLocaleDateString()}
+              </div>
+            </div>
+
+            <div
+              style={{
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                padding: "10px 0px",
+              }}
+            >
+              <FcAlarmClock />
+              <div style={{ paddingLeft: "15px" }}>
+                {dateTime.toLocaleTimeString()}
+              </div>
             </div>
           </div>
           <div
+            className="header"
             style={{
               color: "black",
-              fontWeight: 500,
               display: "flex",
               alignItems: "center",
+              marginLeft: "20px",
             }}
           >
-            <FcAlarmClock />
-            <div style={{ paddingLeft: "15px" }}>
-              {dateTime.toLocaleTimeString()}
+            <FcInfo />
+            <div style={{ paddingLeft: "15px", fontSize: "1.5rem" }}>
+              {name}
             </div>
           </div>
         </div>
