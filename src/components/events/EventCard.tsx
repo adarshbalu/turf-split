@@ -24,30 +24,29 @@ const EventCard = (props: Props) => {
         borderStyle: "solid",
         marginTop: "10px",
         borderRadius: "7px",
-        display: "inline-block",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
         width: "100%",
+        height: "100px",
       }}
     >
       <Link
         to={{ pathname: `/edit`, state: { event: props.event } }}
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", flex: "1" }}
       >
-        <div className="content" style={{ marginTop: "15px", color: "black" }}>
+        <div className="content" style={{ color: "black" }}>
           <div className="header">{name}</div>
           <div style={{ fontWeight: 600, color: "black" }}>
-            {" "}
             on {dateTime.toDateString()}
           </div>
         </div>
-        <i className="" />
       </Link>
       <i
         style={{
-          float: "right",
           fontSize: "25px",
           cursor: "pointer",
-          marginBottom: "25px",
-          textDecoration: "none",
+          // textDecoration: "none",
         }}
         onClick={clickHandler}
       >
