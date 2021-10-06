@@ -1,0 +1,94 @@
+/* #profile-box {
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    margin: 20px auto;
+    padding: 20px;
+} */
+
+.user-avatar {
+  height: 100px;
+  width: 100px;
+  /* background: red; */
+  border-radius: 100px;
+}
+
+.user-name > h1 {
+  font-size: 14;
+  font-weight: 400;
+}
+.user-email > h2 {
+  font-size: 12;
+  font-weight: 200;
+}
+
+.user-section {
+  display: flex;
+  width: 80%;
+  margin: 30px 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* table styles */
+.table {
+  display: flex;
+  justify-content: center;
+  max-height: 300px;
+  overflow: auto;
+  /* border: solid red 4px; */
+  border-radius: 30px;
+}
+
+.table > thead {
+  position: sticky;
+}
+
+.user-balance > h1 {
+  background: linear-gradient(#2b96fa, #63b4ff);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 85%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background: linear-gradient(#2b96fa, #63b4ff);
+  color: #ffffff;
+  text-align: left;
+}
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #2b96fa;
+}
+
+.styled-table tbody {
+  font-weight: bold;
+  color: #2b96fa;
+}
+
+/* table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+} */

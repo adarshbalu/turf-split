@@ -1,27 +1,45 @@
-import React from 'react';
-import LoginPage from './components/login/login';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Home from './components/home/home';
-import AuthContextProvider from './contexts/auth_context';
-import Dashboard from './components/dashboard/dashboard';
+import React from "react";
+import LoginPage from "./components/login/login";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import HomePage from "./components/home/home";
+import AuthContextProvider from "./contexts/auth_context";
+import LandingPage from "./components/landing/landing";
+import NavbarContextProvider from "./contexts/nav_context";
+import EventContextProvider from "./contexts/event_context";
+import CreateEvent from "./components/events/add_event";
+import EventCard from "./components/events/EventCard";
+import EditEvent from "./components/events/edit_event";
+import Event from "../src/types/event";
 
 function App() {
   return (
     <AuthContextProvider>
-    <Router>
-      <Switch>
-
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-            <LoginPage />
-        </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-      </Switch>
-    </Router>
+      <NavbarContextProvider>
+        <EventContextProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <LandingPage />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/home">
+                <HomePage />
+              </Route>
+              <Route path="/add">
+                <CreateEvent />
+              </Route>
+              <Route
+                path="/edit"
+                // component={() => <EditEvent event={{} as Event} />}
+              >
+                <EditEvent />
+              </Route>
+            </Switch>
+          </Router>
+        </EventContextProvider>
+      </NavbarContextProvider>
     </AuthContextProvider>
   );
 }

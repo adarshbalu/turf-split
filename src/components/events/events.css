@@ -1,0 +1,44 @@
+.main {
+    margin-top: 5em;
+}
+
+.center {
+    justify-content: center;
+    padding: 10px;
+}
+
+.ui.search input {
+    width: 100%;
+    border-radius: 0;
+}
+
+.item {
+    padding: 15px 0px;
+}
+
+i.icon {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.right {
+    float: right;
+}
+
+.center-div {
+    text-align: center;
+}
+
+.count-select {
+    display: flex;
+    margin: 20px 0;
+    justify-content: flex-start;
+    padding: 0 8px;
+}
+
+.count-select>input {
+    margin: 0 20px;
+    flex-grow: 2;
+    max-width: 5%;
+}

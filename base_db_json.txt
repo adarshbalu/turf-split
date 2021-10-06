@@ -7,12 +7,69 @@
         "events": [10, 20]
     }],
     "events": [{
-        "id": 1,
-        "name": "some comment",
-        "date": "2014-01-01T23:28:56.782Z",
-        "amount": 400,
-        "paidBy": 1,
-        "players": [1, 2]
+      "id": 1,
+      "name": "Event 1",
+      "date": "2011-10-10T14:48:00",
+      "amount": 400,
+      "paidBy": 1,
+      "players": [
+        {
+          "id": 1,
+          "count": 2,
+          "email":"user@MAIL.com"
+        },
+        {
+          "id": 2,
+          "count": 1,
+           "email":"user@MAIL.com"
+        }
+      ],
+      "isPaid": true
+    },
+    {
+      "id": 2,
+      "name": "Event 2",
+      "date": "2011-10-10T14:48:00",
+      "amount": 400,
+      "paidBy": 1,
+      "players": [
+        {
+          "id": 3,
+          "count": 2,
+           "email":"user@MAIL.com"
+        },
+        {
+          "id": 4,
+          "count": 1,
+           "email":"user@MAIL.com"
+        },
+         {
+          "id": 1,
+          "count": 1,
+           "email":"user@MAIL.com"
+        }
+      ],
+      "isPaid": true
+    },
+    {
+      "id": 3,
+      "name": "Event 3",
+      "date": "2011-10-10T14:48:00",
+      "amount": 400,
+      "paidBy": 1,
+      "players": [
+        {
+          "id": 5,
+          "count": 2,
+           "email":"user@MAIL.com"
+        },
+        {
+          "id": 2,
+          "count": 1,
+           "email":"user@MAIL.com"
+        }
+      ],
+      "isPaid": true
     }]
 
 }

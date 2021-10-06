@@ -8,12 +8,12 @@ import {
   AuthState,
   UserState,
 } from "../../contexts/auth_context";
-import LocalStorage from "../../services/local_storage";
+import { LinearProgress } from "@mui/material";
 
 const LoginBox: FunctionComponent = () => {
   const history = useHistory();
 
-  const { authState, loginUser, addUsername, userState, user } = useContext(
+  const { autoLogin, authState, loginUser, addUsername, userState } = useContext(
     AuthContext
   ) as AuthContextType;
 
@@ -24,16 +24,22 @@ const LoginBox: FunctionComponent = () => {
   };
 
   useEffect(() => {
+    if (autoLogin()) {
+      let path = `/home`;
+      history.push(path);
+    }
+
+  }, [authState]);
+
+  useEffect(() => {
     if (authState === AuthState.AUTHENTICATED) {
-      // Store user data to local storage
-      LocalStorage.setData(LocalStorage.USER_DATA, JSON.stringify(user));
       if (userState === UserState.NEW) {
         setUserName();
       } else {
         routeChange();
       }
     } else if (authState === AuthState.ERROR) {
-      alert("Error occured");
+      alert("Authentication failed");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,14 +59,14 @@ const LoginBox: FunctionComponent = () => {
   };
 
   const routeChange = () => {
-    let path = `/dashboard`;
+    let path = `/home`;
     history.push(path);
   };
 
   return (
     <div className="main-div">
       <div className="login-box">
-        <h1 className="h1-color">Login</h1>
+        <h1>Login</h1>
         <form
           className="form-padding"
           action="submit"
@@ -98,7 +104,7 @@ const LoginBox: FunctionComponent = () => {
           </button>
         </form>
         {/* {JSON.stringify(currentUser) ?? "No user logged in"} */}
-        {authState === AuthState.LOADING ? <h3>Loading</h3> : <></>}
+        {authState === AuthState.LOADING ? <LinearProgress /> : <></>}
       </div>
     </div>
   );
