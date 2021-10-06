@@ -181,13 +181,10 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
                   name: "players",
                   onChange: (e: ChangeEvent<HTMLSelectElement>) => {
                     let selectedPlayer = JSON.parse(e.target.value) as User;
-                    setPlayers((prev) => [
-                      ...prev,
-                      {
-                        id: selectedPlayer.id,
-                        count: 1,
-                      } as Player,
-                    ]);
+                    setPlayers(
+                      players.filter((player) => player.id != selectedPlayer.id)
+                    );
+
                     setAddedPlayers((prev) =>
                       prev.filter(
                         (player: User) => player.id != selectedPlayer.id
