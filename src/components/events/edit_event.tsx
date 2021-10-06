@@ -57,7 +57,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
     editEvent,
     createEventState: eventState,
     allUsers,
-    fetchUsers,
+
     split,
   } = useContext(EventContext) as EventContextType;
 
@@ -263,11 +263,25 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
           {React.createElement(
             "ul",
             null,
-            players1.map((player) => {
+            players.map((player: Player) => {
+              let value: string = "" + player.count;
               return React.createElement(
                 "li",
                 { key: player.id },
-                player.email
+                React.createElement("div", null, [React.createElement("p", null, player.email), React.
+                  createElement("input", {
+                    value: value,
+                    type: "text",
+                    onChange: (e) => {
+                      let index: number = 0;
+                      index = players.findIndex(p => player.id === p.id);
+                      let newPlayers: Player[] = players;
+                      newPlayers[index].count = parseInt(e.target.value);
+                      value = e.target.value;
+                      setPlayers(newPlayers);
+                      console.log(newPlayers[index].count);
+                    }
+                  })])
               );
             })
           )}

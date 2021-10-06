@@ -23,7 +23,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
   const [name, setName] = useState<string>("");
   const [dateTime, setDateTime] = useState<string>("");
   const [amount, setAmount] = useState<number>(400);
-  const [paidBy, setPaidBy] = useState<number>(0);
+  const [paidBy, setPaidBy] = useState<number>(1);
   const [players, setPlayers] = useState<Array<Player>>([]);
   const [playerOptions, setPlayerOptions] = useState<Array<User>>([]);
   const [addedPlayers, setAddedPlayers] = useState<Array<User>>([]);
