@@ -19,7 +19,6 @@ import "./AddEvent.css";
 interface EditEventProps {}
 
 interface stateType {
-  // from: { pathname: string }
   event: Event;
 }
 
@@ -55,9 +54,8 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
 
   const {
     editEvent,
-    createEventState: eventState,
     allUsers,
-
+    editEventState, splitState,
     split,
   } = useContext(EventContext) as EventContextType;
 
@@ -208,7 +206,7 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
           )}
 
           <div className="button-row">
-            {eventState !== EventState.LOADING ? (
+            {editEventState !== EventState.LOADING ? (
               <button
                 className="add-button"
                 onClick={async (e) => {
@@ -220,19 +218,22 @@ const EditEvent: FunctionComponent<EditEventProps> = (props) => {
                 Update
               </button>
             ) : (
-              <p>Updating...</p>
+                <p hidden={splitState === EventState.LOADING}>Updating...</p>
             )}
-            <button
-              className="split-button"
-              onClick={async (e) => {
-                e.preventDefault();
-                await handleSplit();
-              }}
-              style={{ backgroundColor: "#37474F" }}
-              hidden={isPaid}
-            >
-              Split
-            </button>
+
+            {
+              splitState !== EventState.LOADING ? (<button
+                className="split-button"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await handleSplit();
+                }}
+                style={{ backgroundColor: "#37474F" }}
+                hidden={isPaid}
+              >
+                Split
+              </button>) : <p hidden={editEventState === EventState.LOADING}> Splitting</p>
+            }
           </div>
         </form>
       </div>

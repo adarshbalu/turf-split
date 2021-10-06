@@ -23,6 +23,7 @@ export type AuthContextType = {
   user: User;
   addUsername: (username: string) => Promise<void>;
   autoLogin: () => boolean;
+  getUserData: (id: number) => Promise<void>
 };
 
 type Props = {
@@ -35,6 +36,7 @@ const initialState: AuthContextType = {
   loginUser: async (email: string) => {},
   logoutUser: () => {},
   user: {} as User,
+  getUserData: async (id: number) => { },
   addUsername: async (username: string) => {},
   autoLogin: () => {
     return false;
@@ -210,6 +212,7 @@ const AuthContextProvider = (props: Props) => {
         loginUser,
         logoutUser,
         authState,
+        getUserData,
         userState,
         addUsername,
         autoLogin,
