@@ -40,18 +40,55 @@ const EventCard = (props: Props) => {
         to={{ pathname: `/edit`, state: { event: props.event } }}
         style={{ textDecoration: "none", flex: "1" }}
       >
-        <div className="content">
-          <div className="header" style={{ color: "black" }}>
+        <div className="content" style={{ display: "flex" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "0px 30px",
+            }}
+          >
+            <div
+              style={{
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                padding: "10px 0px",
+              }}
+            >
+              <FcCalendar />
+              <div style={{ paddingLeft: "15px" }}>
+                {dateTime.toLocaleDateString()}
+              </div>
+            </div>
+
+            <div
+              style={{
+                color: "black",
+                display: "flex",
+                alignItems: "center",
+                padding: "10px 0px",
+              }}
+            >
+              <FcAlarmClock />
+              <div style={{ paddingLeft: "15px" }}>
+                {dateTime.toLocaleTimeString()}
+              </div>
+            </div>
+          </div>
+          <div
+            className="header"
+            style={{
+              color: "black",
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "20px",
+            }}
+          >
             <FcInfo />
-            {name}
-          </div>
-          <div style={{ color: "black" }}>
-            <FcCalendar />
-            {dateTime.toLocaleDateString()}
-          </div>
-          <div style={{ color: "black", fontWeight: 500 }}>
-            <FcAlarmClock />
-            {dateTime.toLocaleTimeString()}
+            <div style={{ paddingLeft: "15px", fontSize: "1.5rem" }}>
+              {name}
+            </div>
           </div>
         </div>
       </Link>
@@ -61,9 +98,8 @@ const EventCard = (props: Props) => {
           fontSize: "25px",
           cursor: "pointer",
           margin: "0 20px",
-          color: "#2C2891"
+          color: "#2C2891",
         }}
-
         hidden={props.event.paidBy === user.id}
       >
         <HiOutlineCurrencyRupee />

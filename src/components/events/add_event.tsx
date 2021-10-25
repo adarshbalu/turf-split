@@ -1,3 +1,4 @@
+import { LinearProgress } from "@mui/material";
 import React, {
   ChangeEvent,
   FunctionComponent,
@@ -227,7 +228,7 @@ const CreateEvent: FunctionComponent<CreateEventProps> = () => {
             {eventState !== EventState.LOADING ? (
               <button className="add-button">Add</button>
             ) : (
-              <p>Creating event</p>
+                <LinearProgress />
             )}
             <button
               className="split-button"
